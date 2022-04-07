@@ -48,6 +48,8 @@ jobs:
         run: |
           export ADDON_VERSION="${DEPLOY_TAG#v}"
 
+          rm -rf addons
+
           make bundles
 
       - name: "Create PR for ${{ matrix.overlay }}"
@@ -82,5 +84,5 @@ jobs:
           gh pr create \
             --fill \
             --base main \
-            --title "Generate bundle ${{ env.ADDON_VERSION }}}" \
+            --title "Generate bundle ${{ env.ADDON_VERSION }}" \
             --body "sha ${{ github.sha }}, overlay ${{ matrix.overlay }}, tag: ${DEPLOY_TAG}, bundle : ${DEPLOY_TAG} "
