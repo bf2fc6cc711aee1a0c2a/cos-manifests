@@ -2,8 +2,8 @@ resources:
   - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/dev
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-camel
-    newTag: main-b231152f4f915aa0f4c91bc5ea4a7d2b652860fe
+    newTag: main-bd2cc164111414d14f4db2d1e2b8807619e671fe
   - name: quay.io/rhoas/cos-fleetshard-operator-debezium
-    newTag: main-b231152f4f915aa0f4c91bc5ea4a7d2b652860fe
+    newTag: main-bd2cc164111414d14f4db2d1e2b8807619e671fe
   - name: quay.io/rhoas/cos-fleetshard-sync
-    newTag: main-b231152f4f915aa0f4c91bc5ea4a7d2b652860fe
+    newTag: main-bd2cc164111414d14f4db2d1e2b8807619e671fe
