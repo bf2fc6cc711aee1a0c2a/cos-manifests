@@ -51,13 +51,16 @@ jobs:
 
       - name: "Create PR for ${{ matrix.overlay }}"
         env:
-          ADDON_VERSION: ${{ env.DEPLOY_TAG }}
           ADDON_OVERLAY: ${{ matrix.overlay }}
           BRANCH_NAME: addon.${{ matrix.overlay }}-${{ env.DEPLOY_TAG }}
         run: |
+          export ADDON_VERSION="${DEPLOY_TAG#v}"
+
           echo ""
           echo "tag     : $DEPLOY_TAG"
           echo "branch  : $BRANCH_NAME"
+          echo "version : $ADDON_VERSION"
+          echo "overlay : $ADDON_OVERLAY"
           echo ""
 
           git config user.email "mas-connectors@redhat.com" 
