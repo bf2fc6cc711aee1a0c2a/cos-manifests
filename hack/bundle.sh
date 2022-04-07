@@ -30,12 +30,24 @@ echo "# dir     : ${BUNDLE_DIR}"
 echo "# base    : ${BUNDLE_BASE}"
 echo "##############################################"
 
-
 kustomize build "${DIR_OVERLAY}" | operator-sdk generate bundle \
     --kustomize-dir "${DIR_ADDON}/bases"  \
     --package "${BUNDLE_ID}" \
+    --channels stable \
     --default-channel stable \
     --output-dir "${DIR_ADDON}" \
     --version "${ADDON_VERSION}"
 
 rm bundle.Dockerfile
+
+
+yq -i 'del(.annotations."operators.operatorframework.io.metrics.builder")' \
+  "${DIR_ADDON}/metadata/annotations.yaml"
+yq -i 'del(.annotations."operators.operatorframework.io.metrics.mediatype.v1")' \
+  "${DIR_ADDON}/metadata/annotations.yaml"
+yq -i 'del(.annotations."operators.operatorframework.io.metrics.project_layout")' \
+  "${DIR_ADDON}/metadata/annotations.yaml"
+yq -i 'del(.annotations."operators.operatorframework.io.test.mediatype.v1")' \
+  "${DIR_ADDON}/metadata/annotations.yaml"
+yq -i 'del(.annotations."operators.operatorframework.io.test.config.v1")' \
+  "${DIR_ADDON}/metadata/annotations.yaml"

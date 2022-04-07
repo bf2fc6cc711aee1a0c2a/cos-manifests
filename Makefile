@@ -15,13 +15,13 @@ bundles: bundle/camel-k bundle/strimzi bundle/cos-fleetshard-sync bundle/cos-fle
 #
 
 bundle/camel-k: operator-sdk
-	./hack/bundle.sh "camel-k" "camel-k-$(ADDON_VERSION)"
+	./hack/bundle.sh "camel-k" "camel-k-operator/$(ADDON_VERSION)"
 
 bundle/strimzi: operator-sdk
-	./hack/bundle.sh "strimzi" "strimzi-$(ADDON_VERSION)"
+	./hack/bundle.sh "strimzi" "strimzi-kafka-operator/$(ADDON_VERSION)"
 
 bundle/cos-fleetshard-operator-camel: operator-sdk
-	./hack/bundle.sh "cos-fleetshard-operator-camel" "cos-fleetshard-operator-camel-$(ADDON_VERSION)"
+	./hack/bundle.sh "cos-fleetshard-operator-camel" "cos-fleetshard-operator-camel/$(ADDON_VERSION)"
 	
 	cp hack/templates/operator-dependencies.yaml \
 		$(ADDON_PATH)/cos-fleetshard-operator-camel-$(ADDON_VERSION)/metadata/dependencies.yaml
@@ -32,7 +32,7 @@ bundle/cos-fleetshard-operator-camel: operator-sdk
 		$(ADDON_PATH)/cos-fleetshard-operator-camel-$(ADDON_VERSION)/metadata/dependencies.yaml
 
 bundle/cos-fleetshard-operator-debezium: operator-sdk
-	./hack/bundle.sh "cos-fleetshard-operator-debezium" "cos-fleetshard-operator-debezium-$(ADDON_VERSION)"
+	./hack/bundle.sh "cos-fleetshard-operator-debezium" "cos-fleetshard-operator-debezium/$(ADDON_VERSION)"
 
 	cp hack/templates/operator-dependencies.yaml \
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium-$(ADDON_VERSION)/metadata/dependencies.yaml
