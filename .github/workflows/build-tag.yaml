@@ -29,6 +29,11 @@ jobs:
         overlay:
           - "staging"
     steps:
+      - name: "Checkout Project"
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
       - name: Install OpenShift CLI tools
         uses: redhat-actions/openshift-tools-installer@v1
         with:
