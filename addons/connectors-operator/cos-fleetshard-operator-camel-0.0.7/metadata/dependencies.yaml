@@ -1,5 +1,0 @@
-dependencies:
-  - type: olm.package
-    value:
-      packageName: camel-k
-      version: 0.0.7
