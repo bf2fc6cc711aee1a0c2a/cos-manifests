@@ -44,9 +44,10 @@ jobs:
           yq: "latest"
       - name: "Build bundles for ${{ matrix.overlay }}"
         env:
-          ADDON_VERSION: ${{ env.DEPLOY_TAG }}
           ADDON_OVERLAY: ${{ matrix.overlay }}
         run: |
+          export ADDON_VERSION="${DEPLOY_TAG#v}"
+
           make bundles
 
       - name: "Create PR for ${{ matrix.overlay }}"
