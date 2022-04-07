@@ -1,0 +1,387 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.16.0+git
+    operators.operatorframework.io/project_layout: unknown
+  name: camel-k.v0.0.5
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: Build
+      name: builds.camel.apache.org
+      version: v1
+    - kind: CamelCatalog
+      name: camelcatalogs.camel.apache.org
+      version: v1
+    - kind: IntegrationKit
+      name: integrationkits.camel.apache.org
+      version: v1
+    - kind: IntegrationPlatform
+      name: integrationplatforms.camel.apache.org
+      version: v1
+    - kind: Integration
+      name: integrations.camel.apache.org
+      version: v1
+    - kind: KameletBinding
+      name: kameletbindings.camel.apache.org
+      version: v1alpha1
+    - kind: Kamelet
+      name: kamelets.camel.apache.org
+      version: v1alpha1
+  description: Camel K description. TODO.
+  displayName: Camel K
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - camel.apache.org
+          resources:
+          - builds
+          - camelcatalogs
+          - integrationkits
+          - integrationplatforms
+          - integrations
+          - kameletbindings
+          - kamelets
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - camel.apache.org
+          resources:
+          - builds
+          verbs:
+          - delete
+        - apiGroups:
+          - camel.apache.org
+          resources:
+          - builds/status
+          - camelcatalogs/status
+          - integrationkits/status
+          - integrationplatforms/status
+          - integrations/scale
+          - integrations/status
+          - kameletbindings/status
+          - kameletbindings/scale
+          - kamelets/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          - services
+          - endpoints
+          - persistentvolumeclaims
+          - configmaps
+          - secrets
+          - serviceaccounts
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods/exec
+          verbs:
+          - create
+        - apiGroups:
+          - ""
+          resources:
+          - pods/proxy
+          verbs:
+          - get
+        - apiGroups:
+          - policy
+          resources:
+          - poddisruptionbudgets
+          verbs:
+          - create
+          - delete
+          - get
+          - update
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - roles
+          - rolebindings
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - batch
+          resources:
+          - cronjobs
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - batch
+          resources:
+          - jobs
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - networking.k8s.io
+          resources:
+          - ingresses
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resourceNames:
+          - addressable-resolver
+          resources:
+          - clusterroles
+          verbs:
+          - bind
+        - apiGroups:
+          - apiextensions.k8s.io
+          resources:
+          - customresourcedefinitions
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - camel.apache.org
+          resources:
+          - builds/finalizers
+          - integrationkits/finalizers
+          - integrationplatforms/finalizers
+          - integrations/finalizers
+          - kameletbindings/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - ""
+          - build.openshift.io
+          resources:
+          - buildconfigs
+          - buildconfigs/webhooks
+          - builds
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          - image.openshift.io
+          resources:
+          - imagestreamimages
+          - imagestreammappings
+          - imagestreams
+          - imagestreams/secrets
+          - imagestreamtags
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          - build.openshift.io
+          resources:
+          - buildconfigs/instantiate
+          - buildconfigs/instantiatebinary
+          - builds/clone
+          verbs:
+          - create
+        - apiGroups:
+          - ""
+          - route.openshift.io
+          resources:
+          - routes
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          - route.openshift.io
+          resources:
+          - routes/custom-host
+          verbs:
+          - create
+        - apiGroups:
+          - monitoring.coreos.com
+          resources:
+          - podmonitors
+          verbs:
+          - create
+          - delete
+          - deletecollection
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        serviceAccountName: camel-k-operator
+      deployments:
+      - name: camel-k-operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app: camel-k
+              name: camel-k-operator
+          strategy:
+            type: Recreate
+          template:
+            metadata:
+              labels:
+                app: camel-k
+                camel.apache.org/component: operator
+                name: camel-k-operator
+            spec:
+              containers:
+              - command:
+                - kamel
+                - operator
+                env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
+                - name: KAMEL_INSTALL_DEFAULT_KAMELETS
+                  value: "false"
+                - name: OPERATOR_NAME
+                  value: camel-k
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                image: quay.io/rhoas/cos-camel-k:release-1.8.x
+                imagePullPolicy: IfNotPresent
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 20
+                  periodSeconds: 10
+                name: camel-k-operator
+                ports:
+                - containerPort: 8080
+                  name: metrics
+                resources: {}
+              serviceAccountName: camel-k-operator
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - camel-k
+  links:
+  - name: Camel K
+    url: https://camel-k.domain
+  maintainers:
+  - email: your@email.com
+    name: Maintainer Name
+  maturity: alpha
+  provider:
+    name: Provider Name
+    url: https://your.domain
+  version: 0.0.5

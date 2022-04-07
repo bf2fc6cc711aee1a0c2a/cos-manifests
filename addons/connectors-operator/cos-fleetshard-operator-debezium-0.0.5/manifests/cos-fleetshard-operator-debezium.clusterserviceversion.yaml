@@ -1,0 +1,164 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.16.0+git
+    operators.operatorframework.io/project_layout: unknown
+  name: cos-fleetshard-operator-debezium.v0.0.5
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Cos Fleetshard Operator Debezium description. TODO.
+  displayName: Cos Fleetshard Operator Debezium
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - cos.bf2.org
+          resources:
+          - managedconnectors
+          - managedconnectors/status
+          - managedconnectors/finalizers
+          - managedconnectoroperators
+          - managedconnectoroperators/status
+          - managedconnectoroperators/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          - configmaps
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - kafka.strimzi.io
+          resources:
+          - kafkaconnects
+          - kafkaconnectors
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        serviceAccountName: cos-fleetshard-operator-debezium
+      deployments:
+      - name: cos-fleetshard-operator-debezium
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: cos-fleetshard-operator-debezium
+              app.kubernetes.io/part-of: cos
+              app.kubernetes.io/version: latest
+          strategy: {}
+          template:
+            metadata:
+              annotations:
+                prometheus.io/path: /q/metrics
+                prometheus.io/port: "8080"
+                prometheus.io/scheme: http
+                prometheus.io/scrape: "true"
+              labels:
+                app.kubernetes.io/name: cos-fleetshard-operator-debezium
+                app.kubernetes.io/part-of: cos
+                app.kubernetes.io/version: latest
+            spec:
+              containers:
+              - env:
+                - name: KUBERNETES_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: SMALLRYE_CONFIG_LOCATIONS
+                  value: /mnt/app-config-map
+                - name: COS_OPERATOR_ID
+                  value: cos-fleetshard-operator-debezium
+                - name: COS_OPERATOR_VERSION
+                  value: 1.5.0
+                image: quay.io/rhoas/cos-fleetshard-operator-debezium:v0.2.10-058d6cb742a00839e25ab56acfc92b84e4e9ec7c
+                imagePullPolicy: Always
+                livenessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /q/health/live
+                    port: 8080
+                    scheme: HTTP
+                  periodSeconds: 30
+                  successThreshold: 1
+                  timeoutSeconds: 10
+                name: cos-fleetshard-operator-debezium
+                ports:
+                - containerPort: 8080
+                  name: http
+                  protocol: TCP
+                readinessProbe:
+                  failureThreshold: 3
+                  httpGet:
+                    path: /q/health/ready
+                    port: 8080
+                    scheme: HTTP
+                  periodSeconds: 30
+                  successThreshold: 1
+                  timeoutSeconds: 10
+                resources:
+                  limits:
+                    cpu: 1500m
+                    memory: 1Gi
+                  requests:
+                    cpu: 500m
+                    memory: 512Mi
+                volumeMounts:
+                - mountPath: /mnt/app-config-map
+                  name: app-config-map
+              serviceAccountName: cos-fleetshard-operator-debezium
+              volumes:
+              - configMap:
+                  name: cos-fleetshard-operator-debezium-config
+                  optional: false
+                name: app-config-map
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - cos-fleetshard-operator-debezium
+  links:
+  - name: Cos Fleetshard Operator Debezium
+    url: https://cos-fleetshard-operator-debezium.domain
+  maintainers:
+  - email: your@email.com
+    name: Maintainer Name
+  maturity: alpha
+  provider:
+    name: Provider Name
+    url: https://your.domain
+  version: 0.0.5
