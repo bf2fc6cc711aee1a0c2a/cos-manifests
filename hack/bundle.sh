@@ -40,7 +40,6 @@ kustomize build "${DIR_OVERLAY}" | operator-sdk generate bundle \
 
 rm bundle.Dockerfile
 
-
 yq -i 'del(.annotations."operators.operatorframework.io.metrics.builder")' \
   "${DIR_ADDON}/metadata/annotations.yaml"
 yq -i 'del(.annotations."operators.operatorframework.io.metrics.mediatype.v1")' \

@@ -27,9 +27,9 @@ bundle/cos-fleetshard-operator-camel: operator-sdk
 		$(ADDON_PATH)/cos-fleetshard-operator-camel-$(ADDON_VERSION)/metadata/dependencies.yaml
 	
 	yq -i '.dependencies[0].value.packageName="camel-k"' \
-		$(ADDON_PATH)/cos-fleetshard-operator-camel-$(ADDON_VERSION)/metadata/dependencies.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/metadata/dependencies.yaml
 	yq -i '.dependencies[0].value.version=strenv(ADDON_VERSION)' \
-		$(ADDON_PATH)/cos-fleetshard-operator-camel-$(ADDON_VERSION)/metadata/dependencies.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/metadata/dependencies.yaml
 
 bundle/cos-fleetshard-operator-debezium: operator-sdk
 	./hack/bundle.sh "cos-fleetshard-operator-debezium" "cos-fleetshard-operator-debezium/$(ADDON_VERSION)"
@@ -38,9 +38,9 @@ bundle/cos-fleetshard-operator-debezium: operator-sdk
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium-$(ADDON_VERSION)/metadata/dependencies.yaml
 
 	yq -i '.dependencies[0].value.packageName="strimzi"' \
-		$(ADDON_PATH)/cos-fleetshard-operator-debezium-$(ADDON_VERSION)/metadata/dependencies.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/metadata/dependencies.yaml
 	yq -i '.dependencies[0].value.version=strenv(ADDON_VERSION)' \
-		$(ADDON_PATH)/cos-fleetshard-operator-debezium-$(ADDON_VERSION)/metadata/dependencies.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/metadata/dependencies.yaml
 
 bundle/cos-fleetshard-sync: operator-sdk
 	./hack/bundle.sh "cos-fleetshard-sync" main/$(ADDON_VERSION)
