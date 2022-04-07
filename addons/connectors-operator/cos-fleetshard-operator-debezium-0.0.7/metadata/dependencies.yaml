@@ -2,4 +2,4 @@ dependencies:
   - type: olm.package
     value:
       packageName: strimzi
-      version: 0.0.6
+      version: 0.0.7

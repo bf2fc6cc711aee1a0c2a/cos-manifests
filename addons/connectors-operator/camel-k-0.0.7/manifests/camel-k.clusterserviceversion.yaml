@@ -6,7 +6,7 @@ metadata:
     capabilities: Basic Install
     operators.operatorframework.io/builder: operator-sdk-v1.16.0+git
     operators.operatorframework.io/project_layout: unknown
-  name: camel-k.v0.0.6
+  name: camel-k.v0.0.7
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -384,4 +384,4 @@ spec:
   provider:
     name: Provider Name
     url: https://your.domain
-  version: 0.0.6
+  version: 0.0.7
