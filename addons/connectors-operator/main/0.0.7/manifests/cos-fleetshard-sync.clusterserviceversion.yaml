@@ -6,13 +6,13 @@ metadata:
     capabilities: Basic Install
     operators.operatorframework.io/builder: operator-sdk-v1.16.0+git
     operators.operatorframework.io/project_layout: unknown
-  name: cos-fleetshard-operator-camel.v0.0.6
+  name: cos-fleetshard-sync.v0.0.7
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: Cos Fleetshard Operator Camel description. TODO.
-  displayName: Cos Fleetshard Operator Camel
+  description: Cos Fleetshard Sync description. TODO.
+  displayName: Cos Fleetshard Sync
   icon:
   - base64data: ""
     mediatype: ""
@@ -26,9 +26,6 @@ spec:
           - managedconnectors
           - managedconnectors/status
           - managedconnectors/finalizers
-          - managedconnectoroperators
-          - managedconnectoroperators/status
-          - managedconnectoroperators/finalizers
           verbs:
           - create
           - delete
@@ -41,6 +38,7 @@ spec:
           - ""
           resources:
           - secrets
+          - namespaces
           verbs:
           - create
           - delete
@@ -49,26 +47,14 @@ spec:
           - patch
           - update
           - watch
-        - apiGroups:
-          - camel.apache.org
-          resources:
-          - kameletbindings
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
-        serviceAccountName: cos-fleetshard-operator-camel
+        serviceAccountName: cos-fleetshard-sync
       deployments:
-      - name: cos-fleetshard-operator-camel
+      - name: cos-fleetshard-sync
         spec:
           replicas: 1
           selector:
             matchLabels:
-              app.kubernetes.io/name: cos-fleetshard-operator-camel
+              app.kubernetes.io/name: cos-fleetshard-sync
               app.kubernetes.io/part-of: cos
               app.kubernetes.io/version: latest
           strategy: {}
@@ -80,7 +66,7 @@ spec:
                 prometheus.io/scheme: http
                 prometheus.io/scrape: "true"
               labels:
-                app.kubernetes.io/name: cos-fleetshard-operator-camel
+                app.kubernetes.io/name: cos-fleetshard-sync
                 app.kubernetes.io/part-of: cos
                 app.kubernetes.io/version: latest
             spec:
@@ -91,12 +77,10 @@ spec:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: SMALLRYE_CONFIG_LOCATIONS
-                  value: /mnt/app-config-map
-                - name: COS_OPERATOR_ID
-                  value: cos-fleetshard-operator-camel
-                - name: COS_OPERATOR_VERSION
-                  value: 1.5.0
-                image: quay.io/rhoas/cos-fleetshard-operator-camel:v0.2.10-058d6cb742a00839e25ab56acfc92b84e4e9ec7c
+                  value: /mnt/app-config
+                - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
+                  value: /mnt/app-secret
+                image: quay.io/rhoas/cos-fleetshard-sync:v0.2.10-058d6cb742a00839e25ab56acfc92b84e4e9ec7c
                 imagePullPolicy: Always
                 livenessProbe:
                   failureThreshold: 3
@@ -107,7 +91,7 @@ spec:
                   periodSeconds: 30
                   successThreshold: 1
                   timeoutSeconds: 10
-                name: cos-fleetshard-operator-camel
+                name: cos-fleetshard-sync
                 ports:
                 - containerPort: 8080
                   name: http
@@ -124,19 +108,54 @@ spec:
                 resources:
                   limits:
                     cpu: 1500m
-                    memory: 1Gi
+                    memory: 512Mi
                   requests:
                     cpu: 500m
-                    memory: 512Mi
+                    memory: 256Mi
                 volumeMounts:
-                - mountPath: /mnt/app-config-map
-                  name: app-config-map
-              serviceAccountName: cos-fleetshard-operator-camel
+                - mountPath: /mnt/app-config
+                  name: app-config
+                - mountPath: /mnt/app-secret
+                  name: app-secret
+              serviceAccountName: cos-fleetshard-sync
               volumes:
-              - configMap:
-                  name: cos-fleetshard-operator-camel-config
+              - name: app-secret
+                secret:
+                  defaultMode: 420
                   optional: false
-                name: app-config-map
+                  secretName: addon-connectors-operator-parameters
+              - configMap:
+                  defaultMode: 420
+                  name: cos-fleetshard-sync-config
+                  optional: false
+                name: app-config
+      permissions:
+      - rules:
+        - apiGroups:
+          - cos.bf2.org
+          resources:
+          - managedconnectorclusters
+          - managedconnectorclusters/status
+          - managedconnectorclusters/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - cos.bf2.org
+          resources:
+          - managedconnectoroperators
+          - managedconnectoroperators/status
+          - managedconnectoroperators/finalizers
+          verbs:
+          - get
+          - list
+          - watch
+        serviceAccountName: cos-fleetshard-sync
     strategy: deployment
   installModes:
   - supported: false
@@ -148,10 +167,10 @@ spec:
   - supported: true
     type: AllNamespaces
   keywords:
-  - cos-fleetshard-operator-camel
+  - cos-fleetshard-sync
   links:
-  - name: Cos Fleetshard Operator Camel
-    url: https://cos-fleetshard-operator-camel.domain
+  - name: Cos Fleetshard Sync
+    url: https://cos-fleetshard-sync.domain
   maintainers:
   - email: your@email.com
     name: Maintainer Name
@@ -159,4 +178,4 @@ spec:
   provider:
     name: Provider Name
     url: https://your.domain
-  version: 0.0.6
+  version: 0.0.7
