@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/path: /q/metrics
+    prometheus.io/port: "8080"
+    prometheus.io/scheme: http
+    prometheus.io/scrape: "true"
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: cos-fleetshard-sync
+    app.kubernetes.io/part-of: cos
+    app.kubernetes.io/version: latest
+  name: cos-fleetshard-sync
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/name: cos-fleetshard-sync
+    app.kubernetes.io/part-of: cos
+    app.kubernetes.io/version: latest
+  type: ClusterIP
+status:
+  loadBalancer: {}
