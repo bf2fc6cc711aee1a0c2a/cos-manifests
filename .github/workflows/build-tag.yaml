@@ -54,6 +54,7 @@ jobs:
         env:
           ADDON_OVERLAY: ${{ matrix.overlay }}
           BRANCH_NAME: addon.${{ matrix.overlay }}-${{ env.DEPLOY_TAG }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           export ADDON_VERSION="${DEPLOY_TAG#v}"
 
