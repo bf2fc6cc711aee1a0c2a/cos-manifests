@@ -4,7 +4,7 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-  name: camel-k-operator.v0.0.12
+  name: camel-k-operator.v1.1.2
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -380,4 +380,4 @@ spec:
   provider:
     name: Provider Name
     url: https://your.domain
-  version: 0.0.12
+  version: 1.1.2
