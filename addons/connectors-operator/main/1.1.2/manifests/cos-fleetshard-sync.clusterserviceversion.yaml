@@ -4,7 +4,7 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-  name: cos-fleetshard-sync.v0.0.12
+  name: cos-fleetshard-sync.v1.1.2
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -72,11 +72,11 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
-                      - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
-                        value: /mnt/app-secret
                       - name: SMALLRYE_CONFIG_LOCATIONS
                         value: /mnt/app-config
-                    image: quay.io/rhoas/cos-fleetshard-sync:v0.3.1-bd2cc164111414d14f4db2d1e2b8807619e671fe
+                      - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
+                        value: /mnt/app-secret
+                    image: quay.io/rhoas/cos-fleetshard-sync:v1.1.2-35b9fff1525c69c28099c5e5a9ef5e59744917fb
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -128,6 +128,15 @@ spec:
       permissions:
         - rules:
             - apiGroups:
+                - operators.coreos.com
+              resources:
+                - ClusterServiceVersion
+              verbs:
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
                 - cos.bf2.org
               resources:
                 - managedconnectorclusters
@@ -174,4 +183,4 @@ spec:
   provider:
     name: Provider Name
     url: https://your.domain
-  version: 0.0.12
+  version: 1.1.2

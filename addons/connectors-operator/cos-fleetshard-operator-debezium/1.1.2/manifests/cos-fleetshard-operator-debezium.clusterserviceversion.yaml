@@ -4,13 +4,13 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-  name: cos-fleetshard-operator-camel.v0.0.12
+  name: cos-fleetshard-operator-debezium.v1.1.2
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: Cos Fleetshard Operator Camel description. TODO.
-  displayName: Cos Fleetshard Operator Camel
+  description: Cos Fleetshard Operator Debezium description. TODO.
+  displayName: Cos Fleetshard Operator Debezium
   icon: []
   install:
     spec:
@@ -37,6 +37,7 @@ spec:
                 - ""
               resources:
                 - secrets
+                - configmaps
               verbs:
                 - create
                 - delete
@@ -46,9 +47,10 @@ spec:
                 - update
                 - watch
             - apiGroups:
-                - camel.apache.org
+                - kafka.strimzi.io
               resources:
-                - kameletbindings
+                - kafkaconnects
+                - kafkaconnectors
               verbs:
                 - create
                 - delete
@@ -57,14 +59,24 @@ spec:
                 - patch
                 - update
                 - watch
-          serviceAccountName: cos-fleetshard-operator-camel
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+          serviceAccountName: cos-fleetshard-operator-debezium
       deployments:
-        - name: cos-fleetshard-operator-camel
+        - name: cos-fleetshard-operator-debezium
           spec:
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/name: cos-fleetshard-operator-camel
+                app.kubernetes.io/name: cos-fleetshard-operator-debezium
                 app.kubernetes.io/part-of: cos
                 app.kubernetes.io/version: latest
             strategy: {}
@@ -76,7 +88,7 @@ spec:
                   prometheus.io/scheme: http
                   prometheus.io/scrape: "true"
                 labels:
-                  app.kubernetes.io/name: cos-fleetshard-operator-camel
+                  app.kubernetes.io/name: cos-fleetshard-operator-debezium
                   app.kubernetes.io/part-of: cos
                   app.kubernetes.io/version: latest
               spec:
@@ -89,10 +101,10 @@ spec:
                       - name: SMALLRYE_CONFIG_LOCATIONS
                         value: /mnt/app-config-map
                       - name: COS_OPERATOR_ID
-                        value: cos-fleetshard-operator-camel
+                        value: cos-fleetshard-operator-debezium
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-camel:v0.3.1-bd2cc164111414d14f4db2d1e2b8807619e671fe
+                    image: quay.io/rhoas/cos-fleetshard-operator-debezium:v1.1.2-35b9fff1525c69c28099c5e5a9ef5e59744917fb
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -103,7 +115,7 @@ spec:
                       periodSeconds: 30
                       successThreshold: 1
                       timeoutSeconds: 10
-                    name: cos-fleetshard-operator-camel
+                    name: cos-fleetshard-operator-debezium
                     ports:
                       - containerPort: 8080
                         name: http
@@ -127,10 +139,10 @@ spec:
                     volumeMounts:
                       - mountPath: /mnt/app-config-map
                         name: app-config-map
-                serviceAccountName: cos-fleetshard-operator-camel
+                serviceAccountName: cos-fleetshard-operator-debezium
                 volumes:
                   - configMap:
-                      name: cos-fleetshard-operator-camel-config
+                      name: cos-fleetshard-operator-debezium-config
                       optional: false
                     name: app-config-map
     strategy: deployment
@@ -144,10 +156,10 @@ spec:
     - supported: true
       type: AllNamespaces
   keywords:
-    - cos-fleetshard-operator-camel
+    - cos-fleetshard-operator-debezium
   links:
-    - name: Cos Fleetshard Operator Camel
-      url: https://cos-fleetshard-operator-camel.domain
+    - name: Cos Fleetshard Operator Debezium
+      url: https://cos-fleetshard-operator-debezium.domain
   maintainers:
     - email: your@email.com
       name: Maintainer Name
@@ -155,4 +167,4 @@ spec:
   provider:
     name: Provider Name
     url: https://your.domain
-  version: 0.0.12
+  version: 1.1.2
