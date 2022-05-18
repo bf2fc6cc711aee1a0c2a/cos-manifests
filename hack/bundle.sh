@@ -37,7 +37,8 @@ kustomize build "${DIR_OVERLAY}" | operator-sdk generate bundle \
     --channels stable \
     --default-channel stable \
     --output-dir "${DIR_ADDON}" \
-    --version "${ADDON_VERSION}"
+    --version "${ADDON_VERSION}" \
+    --kustomize-dir "${DIR_OVERLAY}"
 
 rm bundle.Dockerfile
 
