@@ -16,7 +16,7 @@ export BUNDLE_BASE=$(dirname "${BASH_SOURCE[0]}")/..
 export BUNDLE_ID="${1}"
 export BUNDLE_NAME="${2}"
 export BUNDLE_DIR="${3}"
-export DIR_OVERLAY="${BUNDLE_BASE}/kustomize/overlays/${ADDON_OVERLAY}/${BUNDLE_ID}"
+export DIR_OVERLAY="${BUNDLE_BASE}/kustomize/overlays/${ADDON_OVERLAY}/data-plane/${BUNDLE_ID}"
 export DIR_ADDON="${BUNDLE_BASE}/addons/connectors-operator/${BUNDLE_DIR}"
 
 if [ ! -d "${DIR_OVERLAY}" ]; then
