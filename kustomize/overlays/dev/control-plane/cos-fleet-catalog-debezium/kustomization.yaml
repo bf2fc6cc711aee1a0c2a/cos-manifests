@@ -1,0 +1,4 @@
+
+images:
+  - name: quay.io/rhoas/cos-fleet-catalog-debezium
+    newTag: latest
