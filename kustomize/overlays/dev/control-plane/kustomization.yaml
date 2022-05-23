@@ -1,0 +1,4 @@
+
+resources:
+- cos-fleet-catalog-camel
+- cos-fleet-catalog-debezium
