@@ -16,6 +16,7 @@ export BUNDLE_BASE=$(dirname "${BASH_SOURCE[0]}")/..
 export BUNDLE_ID="${1}"
 export BUNDLE_NAME="${2}"
 export BUNDLE_DIR="${3}"
+export BUNDLE_CHANNEL="${4}"
 export DIR_OVERLAY="${BUNDLE_BASE}/kustomize/overlays/${ADDON_OVERLAY}/data-plane/${BUNDLE_ID}"
 export DIR_ADDON="${BUNDLE_BASE}/addons/connectors-operator/${BUNDLE_DIR}"
 
@@ -30,12 +31,13 @@ echo "# version : ${ADDON_VERSION}"
 echo "# dir     : ${BUNDLE_DIR}"
 echo "# package : ${BUNDLE_NAME}"
 echo "# base    : ${BUNDLE_BASE}"
+echo "# channel : ${BUNDLE_CHANNEL}"
 echo "##############################################"
 
 kustomize build "${DIR_OVERLAY}" | operator-sdk generate bundle \
     --package "${BUNDLE_NAME}" \
-    --channels stable \
-    --default-channel stable \
+    --channels ${BUNDLE_CHANNEL} \
+    --default-channel ${BUNDLE_CHANNEL} \
     --output-dir "${DIR_ADDON}" \
     --version "${ADDON_VERSION}" \
     --kustomize-dir "${DIR_OVERLAY}"
