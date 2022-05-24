@@ -1,4 +1,3 @@
-
 images:
   - name: quay.io/rhoas/cos-fleet-catalog-camel
-    newTag: latest
+    newTag: main-3ff7a4f8b674fcaeb9780e6f6386de3e318f72d4
