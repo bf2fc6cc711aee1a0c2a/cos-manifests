@@ -1,0 +1,725 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Deep Insights
+    categories: Streaming & Messaging
+    certified: "false"
+    description: Strimzi provides a way to run an Apache Kafka cluster on Kubernetes or OpenShift in various deployment configurations.
+    operators.openshift.io/infrastructure-features: '["Disconnected", "Proxy"]'
+    repository: https://github.com/strimzi/strimzi-kafka-operator
+    support: Strimzi
+  labels:
+    operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.arm64: supported
+    operatorframework.io/os.linux: supported
+  name: strimzi-kafka-operator.v1.1.6
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+      - kind: KafkaBridge
+        name: kafkabridges.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaConnector
+        name: kafkaconnectors.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaConnect
+        name: kafkaconnects.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaMirrorMaker2
+        name: kafkamirrormaker2s.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaMirrorMaker
+        name: kafkamirrormakers.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaRebalance
+        name: kafkarebalances.kafka.strimzi.io
+        version: v1beta2
+      - kind: Kafka
+        name: kafkas.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaTopic
+        name: kafkatopics.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaTopic
+        name: kafkatopics.kafka.strimzi.io
+        version: v1beta1
+      - kind: KafkaTopic
+        name: kafkatopics.kafka.strimzi.io
+        version: v1alpha1
+      - kind: KafkaUser
+        name: kafkausers.kafka.strimzi.io
+        version: v1beta2
+      - kind: KafkaUser
+        name: kafkausers.kafka.strimzi.io
+        version: v1beta1
+      - kind: KafkaUser
+        name: kafkausers.kafka.strimzi.io
+        version: v1alpha1
+      - kind: StrimziPodSet
+        name: strimzipodsets.core.strimzi.io
+        version: v1beta2
+  description: |
+    Strimzi provides a way to run an [Apache Kafka®](https://kafka.apache.org) cluster on [Kubernetes](https://kubernetes.io/) or [OpenShift](https://www.openshift.com/) in various deployment configurations. See our [website](https://strimzi.io) for more details about the project.
+    ### CRD Upgrades
+    **!!! IMPORTANT !!!** This release supports only the API version `v1beta2` and CRD version `apiextensions.k8s.io/v1`. If upgrading from Strimzi 0.22, migration to `v1beta2` needs to be completed for all Strimzi CRDs and CRs before the upgrade to 0.28 is done! If upgrading from Strimzi version earlier than 0.22, you need to first install the CRDs from Strimzi 0.22 and complete the migration to `v1beta2` for all Strimzi CRDs and CRs before the upgrade to 0.28 is done! For more details about the CRD upgrades, see the documentation.
+    ### New in 0.28.0
+    * Support for Kafka 3.1.0
+    * Support for `StrimziPodSet` resources (disabled by default through the `UseStrimziPodSets` feature gate)
+    * Support custom authentication mechanisms in Kafka listeners
+    * Intra-broker disk balancing using Cruise Control
+    * Add support for disabling the FIPS mode in OpenJDK
+    * Fix renewing your own CA certificates
+    * Added the option `createBootstrapService` to disable the creation of the bootstrap service for the Load Balancer Type Listener
+    * Dependency updates (Strimzi Kafka Bridge, Strimzi OAuth, Open Policy Agent Authroizer plugin and others)
+    ### Supported Features
+    * **Manages the Kafka Cluster** - Deploys and manages all of the components of this complex application, including dependencies like Apache ZooKeeper® that are traditionally hard to administer.
+    * **Includes Kafka Connect** - Allows for configuration of common data sources and sinks to move data into and out of the Kafka cluster.
+    * **Topic Management** - Creates and manages Kafka Topics within the cluster.
+    * **User Management** - Creates and manages Kafka Users within the cluster.
+    * **Connector Management** - Creates and manages Kafka Connect connectors.
+    * **Includes Kafka Mirror Maker 1 and 2** - Allows for morroring data between different Apache Kafka® clusters.
+    * **Includes HTTP Kafka Bridge** - Allows clients to send and receive messages through an Apache Kafka® cluster via HTTP protocol.
+    * **Cluster Rebalancing** - Uses built-in Cruise Control for redistributes partition replicas according to specified goals in order to achieve the best cluster performance.
+    * **Monitoring** - Built-in support for monitoring using Prometheus and provided Grafana dashabords
+    ### Upgrading your Clusters
+    The Strimzi Operator understands how to run and upgrade between a set of Kafka versions. When specifying a new version in your config, check to make sure you aren't using any features that may have been removed. See [the upgrade guide](https://strimzi.io/docs/operators/latest/deploying.html#assembly-upgrading-kafka-versions-str) for more information.
+    ### Storage
+    An efficient data storage infrastructure is essential to the optimal performance of Apache Kafka®. Apache Kafka® deployed via Strimzi requires block storage. The use of file storage (for example, NFS) is not recommended.
+    The Strimzi Operator supports three types of data storage:
+    * Ephemeral (Recommended for development only!)
+    * Persistent
+    * JBOD (Just a Bunch of Disks, suitable for Kafka only. Not supported in Zookeeper.)
+    Strimzi also supports advanced operations such as adding or removing disks in Apache Kafka® brokers or resizing the persistent volumes (where supported by the infrastructure).
+    ### Documentation
+    Documentation to the current _main_ branch as well as all releases can be found on our [website](https://strimzi.io/documentation).
+    ### Getting help
+    If you encounter any issues while using Strimzi, you can get help using:
+    * [Strimzi mailing list on CNCF](https://lists.cncf.io/g/cncf-strimzi-users/topics)
+    * [Strimzi Slack channel on CNCF workspace](https://cloud-native.slack.com/messages/strimzi)
+    ### Contributing
+    You can contribute by:
+    * Raising any issues you find using Strimzi
+    * Fixing issues by opening Pull Requests
+    * Improving documentation
+    * Talking about Strimzi
+
+    All bugs, tasks or enhancements are tracked as [GitHub issues](https://github.com/strimzi/strimzi-kafka-operator/issues). Issues which might be a good start for new contributors are marked with ["good-start"](https://github.com/strimzi/strimzi-kafka-operator/labels/good-start) label.
+
+    The [Development guide](https://github.com/strimzi/strimzi-kafka-operator/blob/main/development-docs/DEV_GUIDE.md) describes how to build Strimzi and how to test your changes before submitting a patch or opening a PR.
+
+    The [Documentation Contributor Guide](https://strimzi.io/contributing/guide/) describes how to contribute to Strimzi documentation.
+
+    If you want to get in touch with us first before contributing, you can use:
+    * [Strimzi mailing list on CNCF](https://lists.cncf.io/g/cncf-strimzi-users/topics)
+    * [Strimzi Slack channel on CNCF workspace](https://cloud-native.slack.com/messages/strimzi)
+    ### License
+    Strimzi is licensed under the [Apache License, Version 2.0](https://github.com/strimzi/strimzi-kafka-operator/blob/main/LICENSE).
+  displayName: Strimzi
+  icon: []
+  install:
+    spec:
+      clusterPermissions:
+        - rules:
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - clusterrolebindings
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - storage.k8s.io
+              resources:
+                - storageclasses
+              verbs:
+                - get
+            - apiGroups:
+                - ""
+              resources:
+                - nodes
+              verbs:
+                - list
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkatopics
+                - kafkatopics/status
+                - kafkausers
+                - kafkausers/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - patch
+                - update
+                - delete
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - nodes
+              verbs:
+                - get
+            - apiGroups:
+                - ""
+              resources:
+                - nodes
+              verbs:
+                - get
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - roles
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+                - serviceaccounts
+                - configmaps
+                - services
+                - endpoints
+                - secrets
+                - persistentvolumeclaims
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkas
+                - kafkas/status
+                - kafkaconnects
+                - kafkaconnects/status
+                - kafkaconnectors
+                - kafkaconnectors/status
+                - kafkamirrormakers
+                - kafkamirrormakers/status
+                - kafkabridges
+                - kafkabridges/status
+                - kafkamirrormaker2s
+                - kafkamirrormaker2s/status
+                - kafkarebalances
+                - kafkarebalances/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - core.strimzi.io
+              resources:
+                - strimzipodsets
+                - strimzipodsets/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - extensions
+              resources:
+                - deployments
+                - deployments/scale
+                - replicasets
+                - replicationcontrollers
+                - networkpolicies
+                - ingresses
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - apps
+              resources:
+                - deployments
+                - deployments/scale
+                - deployments/status
+                - statefulsets
+                - replicasets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+            - apiGroups:
+                - build.openshift.io
+              resources:
+                - buildconfigs
+                - buildconfigs/instantiate
+                - builds
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - networkpolicies
+                - ingresses
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - route.openshift.io
+              resources:
+                - routes
+                - routes/custom-host
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - policy
+              resources:
+                - poddisruptionbudgets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+          serviceAccountName: strimzi-cluster-operator
+      deployments:
+        - name: strimzi-cluster-operator
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: strimzi
+                name: strimzi-cluster-operator
+                strimzi.io/kind: cluster-operator
+            strategy:
+              type: Recreate
+            template:
+              metadata:
+                labels:
+                  app: strimzi
+                  name: strimzi-cluster-operator
+                  strimzi.io/kind: cluster-operator
+              spec:
+                containers:
+                  - args:
+                      - /opt/strimzi/bin/cluster_operator_run.sh
+                    env:
+                      - name: STRIMZI_NAMESPACE
+                        value: '*'
+                      - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
+                        value: "120000"
+                      - name: STRIMZI_OPERATION_TIMEOUT_MS
+                        value: "300000"
+                      - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
+                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
+                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
+                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
+                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_KAFKA_IMAGES
+                        value: |
+                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
+                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_KAFKA_CONNECT_IMAGES
+                        value: |
+                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
+                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
+                        value: |
+                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
+                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
+                        value: |
+                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
+                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                      - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
+                        value: quay.io/strimzi/operator:0.28.0
+                      - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
+                        value: quay.io/strimzi/operator:0.28.0
+                      - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
+                        value: quay.io/strimzi/operator:0.28.0
+                      - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
+                        value: quay.io/strimzi/kafka-bridge:0.21.4
+                      - name: STRIMZI_DEFAULT_JMXTRANS_IMAGE
+                        value: quay.io/strimzi/jmxtrans:0.28.0
+                      - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE
+                        value: quay.io/strimzi/kaniko-executor:0.28.0
+                      - name: STRIMZI_DEFAULT_MAVEN_BUILDER
+                        value: quay.io/strimzi/maven-builder:0.28.0
+                      - name: STRIMZI_OPERATOR_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.namespace
+                      - name: STRIMZI_FEATURE_GATES
+                    image: quay.io/strimzi/operator:0.28.0
+                    livenessProbe:
+                      httpGet:
+                        path: /healthy
+                        port: http
+                      initialDelaySeconds: 10
+                      periodSeconds: 30
+                    name: strimzi-cluster-operator
+                    ports:
+                      - containerPort: 8080
+                        name: http
+                    readinessProbe:
+                      httpGet:
+                        path: /ready
+                        port: http
+                      initialDelaySeconds: 10
+                      periodSeconds: 30
+                    resources:
+                      limits:
+                        cpu: "1"
+                        memory: 384Mi
+                      requests:
+                        cpu: 200m
+                        memory: 384Mi
+                    volumeMounts:
+                      - mountPath: /tmp
+                        name: strimzi-tmp
+                      - mountPath: /opt/strimzi/custom-config/
+                        name: co-config-volume
+                serviceAccountName: strimzi-cluster-operator
+                volumes:
+                  - emptyDir:
+                      medium: Memory
+                      sizeLimit: 1Mi
+                    name: strimzi-tmp
+                  - configMap:
+                      name: strimzi-cluster-operator
+                    name: co-config-volume
+      permissions:
+        - rules:
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - roles
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+                - serviceaccounts
+                - configmaps
+                - services
+                - endpoints
+                - secrets
+                - persistentvolumeclaims
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkas
+                - kafkas/status
+                - kafkaconnects
+                - kafkaconnects/status
+                - kafkaconnectors
+                - kafkaconnectors/status
+                - kafkamirrormakers
+                - kafkamirrormakers/status
+                - kafkabridges
+                - kafkabridges/status
+                - kafkamirrormaker2s
+                - kafkamirrormaker2s/status
+                - kafkarebalances
+                - kafkarebalances/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - core.strimzi.io
+              resources:
+                - strimzipodsets
+                - strimzipodsets/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - extensions
+              resources:
+                - deployments
+                - deployments/scale
+                - replicasets
+                - replicationcontrollers
+                - networkpolicies
+                - ingresses
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - apps
+              resources:
+                - deployments
+                - deployments/scale
+                - deployments/status
+                - statefulsets
+                - replicasets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+            - apiGroups:
+                - build.openshift.io
+              resources:
+                - buildconfigs
+                - buildconfigs/instantiate
+                - builds
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - networkpolicies
+                - ingresses
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - route.openshift.io
+              resources:
+                - routes
+                - routes/custom-host
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - policy
+              resources:
+                - poddisruptionbudgets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkatopics
+                - kafkatopics/status
+                - kafkausers
+                - kafkausers/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - patch
+                - update
+                - delete
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+          serviceAccountName: strimzi-cluster-operator
+    strategy: deployment
+  installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: true
+      type: SingleNamespace
+    - supported: true
+      type: MultiNamespace
+    - supported: true
+      type: AllNamespaces
+  keywords:
+    - kafka
+    - messaging
+    - kafka-connect
+    - kafka-streams
+    - data-streaming
+    - data-streams
+    - streaming
+    - streams
+  labels:
+    name: strimzi-cluster-operator
+  links:
+    - name: Website
+      url: https://strimzi.io/
+    - name: Documentation
+      url: https://strimzi.io/documentation/
+    - name: Mailing list
+      url: https://lists.cncf.io/g/cncf-strimzi-users/topics
+    - name: Slack
+      url: https://cloud-native.slack.com/messages/strimzi
+    - name: GitHub
+      url: https://github.com/strimzi/strimzi-kafka-operator
+  maintainers:
+    - email: cncf-strimzi-users@lists.cncf.io
+      name: Strimzi
+  maturity: stable
+  minKubeVersion: 1.16.0
+  provider:
+    name: Strimzi
+  selector:
+    matchLabels:
+      name: strimzi-cluster-operator
+  version: 1.1.6

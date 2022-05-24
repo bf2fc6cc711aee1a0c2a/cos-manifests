@@ -1,0 +1,222 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Basic Install
+    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
+  name: cos-fleetshard-sync.v1.1.6
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+      - kind: ManagedConnectorCluster
+        name: managedconnectorclusters.cos.bf2.org
+        version: v1alpha1
+      - kind: ManagedConnectorOperator
+        name: managedconnectoroperators.cos.bf2.org
+        version: v1alpha1
+      - kind: ManagedConnector
+        name: managedconnectors.cos.bf2.org
+        version: v1alpha1
+  description: The cos-fleetshard-sync is responsible for synchronizing data with the control plane and creating/updating/deleting ManagedConnectors in the data plane.
+  displayName: cos-fleetshard-sync
+  install:
+    spec:
+      clusterPermissions:
+        - rules:
+            - apiGroups:
+                - cos.bf2.org
+              resources:
+                - managedconnectors
+                - managedconnectors/status
+                - managedconnectors/finalizers
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+                - namespaces
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - events
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - limitranges
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - resourcequotas
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+                - update
+          serviceAccountName: cos-fleetshard-sync
+      deployments:
+        - name: cos-fleetshard-sync
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app.kubernetes.io/name: cos-fleetshard-sync
+                app.kubernetes.io/part-of: cos
+                app.kubernetes.io/version: latest
+            strategy: {}
+            template:
+              metadata:
+                annotations:
+                  prometheus.io/path: /q/metrics
+                  prometheus.io/port: "8080"
+                  prometheus.io/scheme: http
+                  prometheus.io/scrape: "true"
+                labels:
+                  app.kubernetes.io/name: cos-fleetshard-sync
+                  app.kubernetes.io/part-of: cos
+                  app.kubernetes.io/version: latest
+              spec:
+                containers:
+                  - env:
+                      - name: KUBERNETES_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.namespace
+                      - name: SMALLRYE_CONFIG_LOCATIONS
+                        value: /mnt/app-config
+                      - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
+                        value: /mnt/app-secret
+                    image: quay.io/rhoas/cos-fleetshard-sync:v1.1.6-5d110ac416b892a426a0cb716b74e171b66411a6
+                    imagePullPolicy: IfNotPresent
+                    livenessProbe:
+                      failureThreshold: 3
+                      httpGet:
+                        path: /q/health/live
+                        port: 8080
+                        scheme: HTTP
+                      periodSeconds: 30
+                      successThreshold: 1
+                      timeoutSeconds: 10
+                    name: cos-fleetshard-sync
+                    ports:
+                      - containerPort: 8080
+                        name: http
+                        protocol: TCP
+                    readinessProbe:
+                      failureThreshold: 3
+                      httpGet:
+                        path: /q/health/ready
+                        port: 8080
+                        scheme: HTTP
+                      periodSeconds: 30
+                      successThreshold: 1
+                      timeoutSeconds: 10
+                    resources:
+                      limits:
+                        cpu: 1500m
+                        memory: 512Mi
+                      requests:
+                        cpu: 500m
+                        memory: 256Mi
+                    volumeMounts:
+                      - mountPath: /mnt/app-config
+                        name: app-config
+                      - mountPath: /mnt/app-secret
+                        name: app-secret
+                serviceAccountName: cos-fleetshard-sync
+                volumes:
+                  - name: app-secret
+                    secret:
+                      defaultMode: 420
+                      optional: false
+                      secretName: addon-connectors-operator-parameters
+                  - configMap:
+                      defaultMode: 420
+                      name: cos-fleetshard-sync-config
+                      optional: false
+                    name: app-config
+      permissions:
+        - rules:
+            - apiGroups:
+                - operators.coreos.com
+              resources:
+                - ClusterServiceVersion
+              verbs:
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - cos.bf2.org
+              resources:
+                - managedconnectorclusters
+                - managedconnectorclusters/status
+                - managedconnectorclusters/finalizers
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - cos.bf2.org
+              resources:
+                - managedconnectoroperators
+                - managedconnectoroperators/status
+                - managedconnectoroperators/finalizers
+              verbs:
+                - get
+                - list
+                - watch
+          serviceAccountName: cos-fleetshard-sync
+    strategy: deployment
+  installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: false
+      type: SingleNamespace
+    - supported: false
+      type: MultiNamespace
+    - supported: true
+      type: AllNamespaces
+  maintainers:
+    - email: mas-connectors@redhat.com
+      name: Red Hat OpenShift Connectors team <mas-connectors@redhat.com>
+  maturity: alpha
+  provider:
+    name: Red Hat
+  replaces: cos-fleetshard-sync.v1.1.2
+  version: 1.1.6
