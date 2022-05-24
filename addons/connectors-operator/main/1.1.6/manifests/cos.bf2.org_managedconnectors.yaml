@@ -1,0 +1,198 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: managedconnectors.cos.bf2.org
+spec:
+  group: cos.bf2.org
+  names:
+    kind: ManagedConnector
+    plural: managedconnectors
+    shortNames:
+    - mctr
+    singular: managedconnector
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.clusterId
+      name: CLUSTER_ID
+      type: string
+    - jsonPath: .spec.connectorId
+      name: CONNECTOR_ID
+      type: string
+    - jsonPath: .spec.deployment.connectorTypeId
+      name: CONNECTOR_TYPE_ID
+      type: string
+    - jsonPath: .spec.deploymentId
+      name: DEPLOYMENT_ID
+      type: string
+    - jsonPath: .status.connectorStatus.phase
+      name: deployment_phase
+      type: string
+    - jsonPath: .status.phase
+      name: PHASE
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              clusterId:
+                type: string
+              connectorId:
+                type: string
+              deployment:
+                properties:
+                  connectorResourceVersion:
+                    type: integer
+                  connectorTypeId:
+                    type: string
+                  deploymentResourceVersion:
+                    type: integer
+                  desiredState:
+                    type: string
+                  kafka:
+                    properties:
+                      id:
+                        type: string
+                      url:
+                        type: string
+                    type: object
+                  schemaRegistry:
+                    properties:
+                      id:
+                        type: string
+                      url:
+                        type: string
+                    type: object
+                  secret:
+                    type: string
+                  unitOfWork:
+                    type: string
+                type: object
+              deploymentId:
+                type: string
+              operatorSelector:
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+                  version:
+                    type: string
+                type: object
+            type: object
+          status:
+            properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      type: string
+                    message:
+                      type: string
+                    observedGeneration:
+                      type: integer
+                    reason:
+                      type: string
+                    status:
+                      type: string
+                    type:
+                      type: string
+                  type: object
+                type: array
+              connectorStatus:
+                properties:
+                  assignedOperator:
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                      version:
+                        type: string
+                    type: object
+                  availableOperator:
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                      version:
+                        type: string
+                    type: object
+                  conditions:
+                    items:
+                      properties:
+                        lastTransitionTime:
+                          type: string
+                        message:
+                          type: string
+                        observedGeneration:
+                          type: integer
+                        reason:
+                          type: string
+                        status:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                  phase:
+                    type: string
+                type: object
+              deployment:
+                properties:
+                  connectorResourceVersion:
+                    type: integer
+                  connectorTypeId:
+                    type: string
+                  deploymentResourceVersion:
+                    type: integer
+                  desiredState:
+                    type: string
+                  kafka:
+                    properties:
+                      id:
+                        type: string
+                      url:
+                        type: string
+                    type: object
+                  schemaRegistry:
+                    properties:
+                      id:
+                        type: string
+                      url:
+                        type: string
+                    type: object
+                  secret:
+                    type: string
+                  unitOfWork:
+                    type: string
+                type: object
+              phase:
+                enum:
+                - Initialization
+                - Augmentation
+                - Monitor
+                - Deleting
+                - Deleted
+                - Stopping
+                - Stopped
+                - Transferring
+                - Transferred
+                - Error
+                type: string
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: null
+  storedVersions: null
