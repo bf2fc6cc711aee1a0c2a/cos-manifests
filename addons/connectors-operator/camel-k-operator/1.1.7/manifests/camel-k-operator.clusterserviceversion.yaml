@@ -10,7 +10,7 @@ metadata:
     operators.operatorframework.io/internal-objects: '["builds.camel.apache.org","integrationkits.camel.apache.org","camelcatalogs.camel.apache.org"]'
     repository: https://github.com/apache/camel-k
     support: Camel
-  name: camel-k-operator.v1.1.6
+  name: camel-k-operator.v1.1.7
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -438,4 +438,4 @@ spec:
   selector:
     matchLabels:
       name: camel-k-operator
-  version: 1.1.6
+  version: 1.1.7

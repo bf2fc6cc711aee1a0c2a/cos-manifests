@@ -14,7 +14,7 @@ metadata:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: strimzi-kafka-operator.v1.1.6
+  name: strimzi-kafka-operator.v1.1.7
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -722,4 +722,4 @@ spec:
   selector:
     matchLabels:
       name: strimzi-cluster-operator
-  version: 1.1.6
+  version: 1.1.7
