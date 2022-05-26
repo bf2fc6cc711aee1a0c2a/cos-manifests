@@ -28,6 +28,9 @@ bundle/camel-k: operator-sdk
 		"$(CAMEL_K_BUNDLE_NAME)" \
 		"$(CAMEL_K_BUNDLE_NAME)/$(ADDON_VERSION)" \
 		"stable"
+	
+	yq -i 'del(.spec.install.spec.deployments[].label)' \
+		$(ADDON_PATH)/camel-k-operator/$(ADDON_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
 
 bundle/strimzi: operator-sdk
 	./hack/bundle.sh \
@@ -35,6 +38,9 @@ bundle/strimzi: operator-sdk
 		"$(STRIMZI_BUNDLE_NAME)" \
 		"$(STRIMZI_BUNDLE_NAME)/$(ADDON_VERSION)" \
 		"alpha"
+
+	yq -i 'del(.spec.install.spec.deployments[].label)' \
+		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-operator-camel: operator-sdk
 	./hack/bundle.sh \
@@ -54,8 +60,12 @@ bundle/cos-fleetshard-operator-camel: operator-sdk
 	yq -i 'del(.status)' \
 		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel_v1_service.yaml
 		
+    # TODO: operator-sdk 1.21.0 generates additional labels
+	# yq -i 'del(.spec.install.spec.deployments[].label)' \
+	# 	$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel.clusterserviceversion.yaml
+
 	yq -i '.spec.replaces="$(CAMEL_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
-			$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel.clusterserviceversion.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-operator-debezium: operator-sdk
 	./hack/bundle.sh \
@@ -75,8 +85,12 @@ bundle/cos-fleetshard-operator-debezium: operator-sdk
 	yq -i 'del(.status)' \
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium_v1_service.yaml
 
+    # TODO: operator-sdk 1.21.0 generates additional labels
+	# yq -i 'del(.spec.install.spec.deployments[].label)' \
+	#	$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium.clusterserviceversion.yaml
+
 	yq -i '.spec.replaces="$(DEBEZIUM_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
-			$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium.clusterserviceversion.yaml
+		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-sync: operator-sdk
 	./hack/bundle.sh \
@@ -98,8 +112,12 @@ bundle/cos-fleetshard-sync: operator-sdk
 	yq -i 'del(.status)' \
 		$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync_v1_service.yaml
 
+    # TODO: operator-sdk 1.21.0 generates additional labels 
+	# yq -i 'del(.spec.install.spec.deployments[].label)' \
+	#	$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync.clusterserviceversion.yaml
+
 	yq -i '.spec.replaces="$(SYNC_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
-			$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync.clusterserviceversion.yaml
+		$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync.clusterserviceversion.yaml
 
 #
 # Helpers

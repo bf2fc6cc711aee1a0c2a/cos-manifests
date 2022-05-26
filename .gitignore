@@ -3,6 +3,7 @@ kubeconfig
 
 *.iml
 
+bin/
 tests/output/kind-*
 .idea
 .vscode
