@@ -6,7 +6,6 @@ metadata:
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
   name: cos-fleetshard-sync.v1.1.1
 spec:
-  replaces: cos-fleetshard-sync.v9.9.9
   description: The cos-fleetshard-sync is responsible for synchronizing data with the control plane and creating/updating/deleting ManagedConnectors in the data plane.
   displayName: cos-fleetshard-sync
   maintainers:

@@ -6,7 +6,6 @@ metadata:
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-debezium
   name: cos-fleetshard-operator-debezium.v1.1.1
 spec:
-  replaces: cos-fleetshard-operator-debezium.v9.9.9
   description: The cos-fleetshard-operator-debezium is responsible for managing Debezium connectors.
   displayName: cos-fleetshard-operator-debezium
   maintainers:
