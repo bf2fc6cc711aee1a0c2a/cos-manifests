@@ -1,0 +1,5 @@
+namespace: redhat-openshift-connectors
+
+resources:
+  - control-plane
+  - data-plane
