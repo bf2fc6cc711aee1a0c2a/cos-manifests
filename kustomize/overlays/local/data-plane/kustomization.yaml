@@ -1,0 +1,65 @@
+resources:
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/local
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - files:
+      - application.properties=cos-fleetshard-sync/app-config/application.properties
+    name: cos-fleetshard-sync-config
+    behavior: replace
+
+images:
+  - name: quay.io/rhoas/cos-fleetshard-operator-camel
+    newTag: latest
+  - name: quay.io/rhoas/cos-fleetshard-operator-debezium
+    newTag: latest
+  - name: quay.io/rhoas/cos-fleetshard-sync
+    newTag: latest
+
+patchesStrategicMerge:
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: redhat-openshift-connectors
+
+patchesJson6902:
+  - target:
+      group: apps
+      kind: Deployment
+      name: cos-fleetshard-operator-camel
+      version: v1
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: "IfNotPresent"
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      group: apps
+      kind: Deployment
+      name: cos-fleetshard-operator-debezium
+      version: v1
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: "IfNotPresent"
+      - op: replace
+        path: /spec/replicas
+        value: 1
+  - target:
+      group: apps
+      kind: Deployment
+      name: cos-fleetshard-sync
+      version: v1
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: "IfNotPresent"
+      - op: replace
+        path: /spec/replicas
+        value: 1

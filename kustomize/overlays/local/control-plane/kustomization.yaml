@@ -1,0 +1,35 @@
+resources:
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleet-manager//etc/kubernetes/manifests/overlays/local
+
+images:
+  - name: quay.io/rhoas/cos-fleet-manager
+    newTag: latest
+  - name: quay.io/rhoas/cos-fleet-catalog-camel
+    newTag: latest
+  - name: quay.io/rhoas/cos-fleet-catalog-debezium
+    newTag: latest
+
+patchesStrategicMerge:
+  - |-
+    $patch: delete
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: redhat-openshift-connectors
+
+patchesJson6902:
+  - target:
+      group: apps
+      kind: Deployment
+      name: cos-fleet-manager
+      version: v1
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: "IfNotPresent"
+      - op: replace
+        path: /spec/template/spec/initContainers/0/imagePullPolicy
+        value: "IfNotPresent"
+      - op: replace
+        path: /spec/template/spec/initContainers/1/imagePullPolicy
+        value: "IfNotPresent"
