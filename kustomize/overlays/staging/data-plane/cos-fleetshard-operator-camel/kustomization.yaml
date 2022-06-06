@@ -1,17 +1,16 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-camel/?ref=v1.1.7
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-camel/?ref=v1.1.10
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-camel
-    newTag: v1.1.7-5d110ac416b892a426a0cb716b74e171b66411a6
-
+    digest: ""
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: cos-fleetshard-operator-camel
-  spec:
-    template:
-      spec:
-        imagePullSecrets:
-          - name: addon-pullsecret
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: cos-fleetshard-operator-camel
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: addon-pullsecret
