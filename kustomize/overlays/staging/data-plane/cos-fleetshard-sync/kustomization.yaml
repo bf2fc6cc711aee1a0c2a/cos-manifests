@@ -1,17 +1,16 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-sync/?ref=v1.1.7
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-sync/?ref=v1.1.10
 images:
   - name: quay.io/rhoas/cos-fleetshard-sync
-    newTag: v1.1.7-5d110ac416b892a426a0cb716b74e171b66411a6
-
+    digest: sha256:4eeeebf05a14d3ff03991a25bfbc6dbcbce1ad9f39d06af1c29849ad2cb6e0c0
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: cos-fleetshard-sync
-  spec:
-    template:
-      spec:
-        imagePullSecrets:
-          - name: addon-pullsecret
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: cos-fleetshard-sync
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: addon-pullsecret

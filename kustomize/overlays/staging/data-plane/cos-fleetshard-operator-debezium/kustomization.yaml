@@ -1,20 +1,16 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-debezium/?ref=v1.1.7
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-debezium/?ref=v1.1.10
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-debezium
-    newTag: v1.1.7-5d110ac416b892a426a0cb716b74e171b66411a6
-
+    digest: sha256:871455ea75b7c0aefafb71c809ec3e74a8cfeba39b545bdb06efb142c2fce170
 patchesStrategicMerge:
-- |-
-  apiVersion: apps/v1
-  kind: Deployment
-  metadata:
-    name: cos-fleetshard-operator-debezium
-  spec:
-    template:
-      spec:
-        imagePullSecrets:
-          - name: addon-pullsecret
-
-
-
+  - |-
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: cos-fleetshard-operator-debezium
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: addon-pullsecret
