@@ -4,13 +4,24 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-camel
-  name: cos-fleetshard-operator-camel.v1.1.7
+    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
+    olm.skipRange: '>=1.1.6 <1.1.10'
+  name: cos-fleetshard-sync.v1.1.10
 spec:
   apiservicedefinitions: {}
-  customresourcedefinitions: {}
-  description: The cos-fleetshard-operator-camel is responsible for managing Camel K connectors.
-  displayName: cos-fleetshard-operator-camel
+  customresourcedefinitions:
+    owned:
+      - kind: ManagedConnectorCluster
+        name: managedconnectorclusters.cos.bf2.org
+        version: v1alpha1
+      - kind: ManagedConnectorOperator
+        name: managedconnectoroperators.cos.bf2.org
+        version: v1alpha1
+      - kind: ManagedConnector
+        name: managedconnectors.cos.bf2.org
+        version: v1alpha1
+  description: The cos-fleetshard-sync is responsible for synchronizing data with the control plane and creating/updating/deleting ManagedConnectors in the data plane.
+  displayName: cos-fleetshard-sync
   install:
     spec:
       clusterPermissions:
@@ -21,9 +32,6 @@ spec:
                 - managedconnectors
                 - managedconnectors/status
                 - managedconnectors/finalizers
-                - managedconnectoroperators
-                - managedconnectoroperators/status
-                - managedconnectoroperators/finalizers
               verbs:
                 - create
                 - delete
@@ -36,18 +44,7 @@ spec:
                 - ""
               resources:
                 - secrets
-              verbs:
-                - create
-                - delete
-                - get
-                - list
-                - patch
-                - update
-                - watch
-            - apiGroups:
-                - camel.apache.org
-              resources:
-                - kameletbindings
+                - namespaces
               verbs:
                 - create
                 - delete
@@ -66,14 +63,36 @@ spec:
                 - get
                 - list
                 - watch
-          serviceAccountName: cos-fleetshard-operator-camel
+            - apiGroups:
+                - ""
+              resources:
+                - limitranges
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - resourcequotas
+              verbs:
+                - create
+                - patch
+                - get
+                - list
+                - watch
+                - update
+          serviceAccountName: cos-fleetshard-sync
       deployments:
-        - name: cos-fleetshard-operator-camel
+        - name: cos-fleetshard-sync
           spec:
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/name: cos-fleetshard-operator-camel
+                app.kubernetes.io/name: cos-fleetshard-sync
                 app.kubernetes.io/part-of: cos
                 app.kubernetes.io/version: latest
             strategy: {}
@@ -85,7 +104,7 @@ spec:
                   prometheus.io/scheme: http
                   prometheus.io/scrape: "true"
                 labels:
-                  app.kubernetes.io/name: cos-fleetshard-operator-camel
+                  app.kubernetes.io/name: cos-fleetshard-sync
                   app.kubernetes.io/part-of: cos
                   app.kubernetes.io/version: latest
               spec:
@@ -95,13 +114,11 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
+                      - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
+                        value: /mnt/app-secret
                       - name: SMALLRYE_CONFIG_LOCATIONS
-                        value: /mnt/app-config-map
-                      - name: COS_OPERATOR_ID
-                        value: cos-fleetshard-operator-camel
-                      - name: COS_OPERATOR_VERSION
-                        value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-camel:v1.1.7-5d110ac416b892a426a0cb716b74e171b66411a6
+                        value: /mnt/app-config
+                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:4eeeebf05a14d3ff03991a25bfbc6dbcbce1ad9f39d06af1c29849ad2cb6e0c0
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -112,7 +129,7 @@ spec:
                       periodSeconds: 30
                       successThreshold: 1
                       timeoutSeconds: 10
-                    name: cos-fleetshard-operator-camel
+                    name: cos-fleetshard-sync
                     ports:
                       - containerPort: 8080
                         name: http
@@ -129,19 +146,73 @@ spec:
                     resources:
                       limits:
                         cpu: 1500m
-                        memory: 1Gi
+                        memory: 512Mi
                       requests:
                         cpu: 500m
-                        memory: 512Mi
+                        memory: 256Mi
                     volumeMounts:
-                      - mountPath: /mnt/app-config-map
-                        name: app-config-map
-                serviceAccountName: cos-fleetshard-operator-camel
+                      - mountPath: /mnt/app-config
+                        name: app-config
+                      - mountPath: /mnt/app-secret
+                        name: app-secret
+                imagePullSecrets:
+                  - name: addon-pullsecret
+                serviceAccountName: cos-fleetshard-sync
                 volumes:
-                  - configMap:
-                      name: cos-fleetshard-operator-camel-config
+                  - name: app-secret
+                    secret:
+                      defaultMode: 420
                       optional: false
-                    name: app-config-map
+                      secretName: addon-connectors-operator-parameters
+                  - configMap:
+                      defaultMode: 420
+                      name: cos-fleetshard-sync-config
+                      optional: false
+                    name: app-config
+      permissions:
+        - rules:
+            - apiGroups:
+                - operators.coreos.com
+              resources:
+                - clusterserviceversions
+              verbs:
+                - delete
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - configmaps
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - cos.bf2.org
+              resources:
+                - managedconnectorclusters
+                - managedconnectorclusters/status
+                - managedconnectorclusters/finalizers
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - cos.bf2.org
+              resources:
+                - managedconnectoroperators
+                - managedconnectoroperators/status
+                - managedconnectoroperators/finalizers
+              verbs:
+                - get
+                - list
+                - watch
+          serviceAccountName: cos-fleetshard-sync
     strategy: deployment
   installModes:
     - supported: true
@@ -158,5 +229,4 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  replaces: cos-fleetshard-operator-camel.v1.1.6
-  version: 1.1.7
+  version: 1.1.10

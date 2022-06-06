@@ -14,7 +14,7 @@ metadata:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: strimzi-kafka-operator.v1.1.7
+  name: strimzi-kafka-operator.v0.28.0
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -435,7 +435,9 @@ spec:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: STRIMZI_FEATURE_GATES
-                    image: quay.io/strimzi/operator:0.28.0
+                      - name: STRIMZI_CUSTOM_RESOURCE_SELECTOR
+                        value: cos.bf2.org/operator.type=debezium-connector-operator
+                    image: quay.io/strimzi/operator@sha256:8b010c5fb8244b742a37f264feefc116d75bb2abd2d6895375cbeea250727b39
                     livenessProbe:
                       httpGet:
                         path: /healthy
@@ -722,4 +724,4 @@ spec:
   selector:
     matchLabels:
       name: strimzi-cluster-operator
-  version: 1.1.7
+  version: 0.28.0

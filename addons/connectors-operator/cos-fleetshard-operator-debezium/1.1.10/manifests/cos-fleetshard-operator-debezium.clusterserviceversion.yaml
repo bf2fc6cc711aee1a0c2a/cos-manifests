@@ -4,23 +4,14 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
-  name: cos-fleetshard-sync.v1.1.7
+    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-debezium
+    olm.skipRange: '>=1.1.6 <1.1.10'
+  name: cos-fleetshard-operator-debezium.v1.1.10
 spec:
   apiservicedefinitions: {}
-  customresourcedefinitions:
-    owned:
-      - kind: ManagedConnectorCluster
-        name: managedconnectorclusters.cos.bf2.org
-        version: v1alpha1
-      - kind: ManagedConnectorOperator
-        name: managedconnectoroperators.cos.bf2.org
-        version: v1alpha1
-      - kind: ManagedConnector
-        name: managedconnectors.cos.bf2.org
-        version: v1alpha1
-  description: The cos-fleetshard-sync is responsible for synchronizing data with the control plane and creating/updating/deleting ManagedConnectors in the data plane.
-  displayName: cos-fleetshard-sync
+  customresourcedefinitions: {}
+  description: The cos-fleetshard-operator-debezium is responsible for managing Debezium connectors.
+  displayName: cos-fleetshard-operator-debezium
   install:
     spec:
       clusterPermissions:
@@ -31,6 +22,9 @@ spec:
                 - managedconnectors
                 - managedconnectors/status
                 - managedconnectors/finalizers
+                - managedconnectoroperators
+                - managedconnectoroperators/status
+                - managedconnectoroperators/finalizers
               verbs:
                 - create
                 - delete
@@ -43,7 +37,20 @@ spec:
                 - ""
               resources:
                 - secrets
-                - namespaces
+                - configmaps
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkaconnects
+                - kafkaconnectors
               verbs:
                 - create
                 - delete
@@ -62,36 +69,14 @@ spec:
                 - get
                 - list
                 - watch
-            - apiGroups:
-                - ""
-              resources:
-                - limitranges
-              verbs:
-                - create
-                - patch
-                - get
-                - list
-                - watch
-                - update
-            - apiGroups:
-                - ""
-              resources:
-                - resourcequotas
-              verbs:
-                - create
-                - patch
-                - get
-                - list
-                - watch
-                - update
-          serviceAccountName: cos-fleetshard-sync
+          serviceAccountName: cos-fleetshard-operator-debezium
       deployments:
-        - name: cos-fleetshard-sync
+        - name: cos-fleetshard-operator-debezium
           spec:
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/name: cos-fleetshard-sync
+                app.kubernetes.io/name: cos-fleetshard-operator-debezium
                 app.kubernetes.io/part-of: cos
                 app.kubernetes.io/version: latest
             strategy: {}
@@ -103,7 +88,7 @@ spec:
                   prometheus.io/scheme: http
                   prometheus.io/scrape: "true"
                 labels:
-                  app.kubernetes.io/name: cos-fleetshard-sync
+                  app.kubernetes.io/name: cos-fleetshard-operator-debezium
                   app.kubernetes.io/part-of: cos
                   app.kubernetes.io/version: latest
               spec:
@@ -114,10 +99,12 @@ spec:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: SMALLRYE_CONFIG_LOCATIONS
-                        value: /mnt/app-config
-                      - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
-                        value: /mnt/app-secret
-                    image: quay.io/rhoas/cos-fleetshard-sync:v1.1.7-5d110ac416b892a426a0cb716b74e171b66411a6
+                        value: /mnt/app-config-map
+                      - name: COS_OPERATOR_ID
+                        value: cos-fleetshard-operator-debezium
+                      - name: COS_OPERATOR_VERSION
+                        value: 1.5.0
+                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:871455ea75b7c0aefafb71c809ec3e74a8cfeba39b545bdb06efb142c2fce170
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -128,7 +115,7 @@ spec:
                       periodSeconds: 30
                       successThreshold: 1
                       timeoutSeconds: 10
-                    name: cos-fleetshard-sync
+                    name: cos-fleetshard-operator-debezium
                     ports:
                       - containerPort: 8080
                         name: http
@@ -145,63 +132,21 @@ spec:
                     resources:
                       limits:
                         cpu: 1500m
-                        memory: 512Mi
+                        memory: 1Gi
                       requests:
                         cpu: 500m
-                        memory: 256Mi
+                        memory: 512Mi
                     volumeMounts:
-                      - mountPath: /mnt/app-config
-                        name: app-config
-                      - mountPath: /mnt/app-secret
-                        name: app-secret
-                serviceAccountName: cos-fleetshard-sync
+                      - mountPath: /mnt/app-config-map
+                        name: app-config-map
+                imagePullSecrets:
+                  - name: addon-pullsecret
+                serviceAccountName: cos-fleetshard-operator-debezium
                 volumes:
-                  - name: app-secret
-                    secret:
-                      defaultMode: 420
-                      optional: false
-                      secretName: addon-connectors-operator-parameters
                   - configMap:
-                      defaultMode: 420
-                      name: cos-fleetshard-sync-config
+                      name: cos-fleetshard-operator-debezium-config
                       optional: false
-                    name: app-config
-      permissions:
-        - rules:
-            - apiGroups:
-                - operators.coreos.com
-              resources:
-                - ClusterServiceVersion
-              verbs:
-                - delete
-                - get
-                - list
-                - watch
-            - apiGroups:
-                - cos.bf2.org
-              resources:
-                - managedconnectorclusters
-                - managedconnectorclusters/status
-                - managedconnectorclusters/finalizers
-              verbs:
-                - create
-                - delete
-                - get
-                - list
-                - patch
-                - update
-                - watch
-            - apiGroups:
-                - cos.bf2.org
-              resources:
-                - managedconnectoroperators
-                - managedconnectoroperators/status
-                - managedconnectoroperators/finalizers
-              verbs:
-                - get
-                - list
-                - watch
-          serviceAccountName: cos-fleetshard-sync
+                    name: app-config-map
     strategy: deployment
   installModes:
     - supported: true
@@ -218,5 +163,4 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  replaces: cos-fleetshard-sync.v1.1.6
-  version: 1.1.7
+  version: 1.1.10
