@@ -43,8 +43,11 @@ bundle/strimzi: operator-sdk
 		"$(STRIMZI_BUNDLE_VERSION)" \
 		"alpha"
 
+	yq -i '.spec.install.spec.deployments[0].spec.template.spec.containers[0].env += {"name": "STRIMZI_CUSTOM_RESOURCE_SELECTOR", "value": "cos.bf2.org/operator.type=debezium-connector-operator"}' \
+		$(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
 	yq -i 'del(.spec.install.spec.deployments[].label)' \
 		$(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+	
 	rm $(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-cluster-operator-topic-operator-delegation_rbac.authorization.k8s.io_v1_clusterrolebinding.yaml
 	
 
