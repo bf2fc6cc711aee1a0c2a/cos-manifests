@@ -2,4 +2,4 @@ dependencies:
   - type: olm.package
     value:
       packageName: camel-k-operator
-      version: 1.1.7
+      version: 1.9.0-snapshot-cd1831146a
