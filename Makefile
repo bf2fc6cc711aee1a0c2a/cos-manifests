@@ -11,8 +11,12 @@ DEBEZIUM_BUNDLE_NAME := cos-fleetshard-operator-debezium
 SYNC_BUNDLE_NAME 	 := cos-fleetshard-sync
 SKIP_RANGE_START     := 1.1.6
 
+#used to add annotation with underlying operator version
 CAMEL_K_BUNDLE_VERSION := $(shell grep 'camel-k.version' staging.properties | cut -d '=' -f 2-)
 STRIMZI_BUNDLE_VERSION := $(shell grep 'strimzi.version' staging.properties | cut -d '=' -f 2-)
+
+#used to add `replaces` field
+PREVIOUS_TAG := $(shell ./hack/fetch-previous-tag.sh)
 
 OPERATOR_SDK_VERSION := v1.17.0
 
@@ -29,27 +33,55 @@ bundle/camel-k: operator-sdk
 		"camel-k" \
 		"$(CAMEL_K_BUNDLE_NAME)" \
 		"$(CAMEL_K_BUNDLE_NAME)" \
-		"$(CAMEL_K_BUNDLE_VERSION)" \
+		"$(ADDON_VERSION)" \
 		"stable"
-	
+
+# remove excessive label	
 	yq -i 'del(.spec.install.spec.deployments[].label)' \
-		$(ADDON_PATH)/camel-k-operator/$(CAMEL_K_BUNDLE_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
+		$(ADDON_PATH)/camel-k-operator/$(ADDON_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
+	
+# add annotation with real camel-k version	
+	yq -i '.metadata.annotations."cos.bf2.org/underlying-version"="$(CAMEL_K_BUNDLE_VERSION)"' \
+		$(ADDON_PATH)/camel-k-operator/$(ADDON_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
+
+# add skipRange annotation
+	yq -i '.metadata.annotations."olm.skipRange"=">=$(SKIP_RANGE_START) <$(ADDON_VERSION)"' \
+		$(ADDON_PATH)/camel-k-operator/$(ADDON_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
+
+#add replaces
+	yq -i '.spec.replaces="$(CAMEL_K_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
+			$(ADDON_PATH)/camel-k-operator/$(ADDON_VERSION)/manifests/camel-k-operator.clusterserviceversion.yaml
 
 bundle/strimzi: operator-sdk
 	./hack/bundle.sh \
 		"strimzi" \
 		"$(STRIMZI_BUNDLE_NAME)" \
 		"$(STRIMZI_BUNDLE_NAME)" \
-		"$(STRIMZI_BUNDLE_VERSION)" \
+		"$(ADDON_VERSION)" \
 		"alpha"
 
+# add STRIMZI_CUSTOM_RESOURCE_SELECTOR
 	yq -i '.spec.install.spec.deployments[0].spec.template.spec.containers[0].env += {"name": "STRIMZI_CUSTOM_RESOURCE_SELECTOR", "value": "cos.bf2.org/operator.type=debezium-connector-operator"}' \
-		$(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+
+# remove excessive label
 	yq -i 'del(.spec.install.spec.deployments[].label)' \
-		$(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
 	
-	rm $(ADDON_PATH)/strimzi-kafka-operator/$(STRIMZI_BUNDLE_VERSION)/manifests/strimzi-cluster-operator-topic-operator-delegation_rbac.authorization.k8s.io_v1_clusterrolebinding.yaml
+# remove unecessary clusterrolebinding
+	rm $(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-cluster-operator-topic-operator-delegation_rbac.authorization.k8s.io_v1_clusterrolebinding.yaml
 	
+# add annotation with real strimzi version
+	yq -i '.metadata.annotations."cos.bf2.org/underlying-version"="$(STRIMZI_BUNDLE_VERSION)"' \
+		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+
+# add skipRange annotation
+	yq -i '.metadata.annotations."olm.skipRange"=">=$(SKIP_RANGE_START) <$(ADDON_VERSION)"' \
+		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
+
+#add replaces
+	yq -i '.spec.replaces="$(STRIMZI_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
+			$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-operator-camel: operator-sdk
 	./hack/bundle.sh \
@@ -64,7 +96,7 @@ bundle/cos-fleetshard-operator-camel: operator-sdk
 	
 	yq -i '.dependencies[0].value.packageName="$(CAMEL_K_BUNDLE_NAME)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/metadata/dependencies.yaml
-	yq -i '.dependencies[0].value.version="$(CAMEL_K_BUNDLE_VERSION)"' \
+	yq -i '.dependencies[0].value.version="$(ADDON_VERSION)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/metadata/dependencies.yaml
 
 	yq -i 'del(.status)' \
@@ -76,6 +108,9 @@ bundle/cos-fleetshard-operator-camel: operator-sdk
 
 	yq -i '.metadata.annotations."olm.skipRange"=">=$(SKIP_RANGE_START) <$(ADDON_VERSION)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel.clusterserviceversion.yaml
+
+	yq -i '.spec.replaces="$(CAMEL_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
+			$(ADDON_PATH)/cos-fleetshard-operator-camel/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-camel.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-operator-debezium: operator-sdk
 	./hack/bundle.sh \
@@ -90,7 +125,7 @@ bundle/cos-fleetshard-operator-debezium: operator-sdk
 
 	yq -i '.dependencies[0].value.packageName="$(STRIMZI_BUNDLE_NAME)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/metadata/dependencies.yaml
-	yq -i '.dependencies[0].value.version="$(STRIMZI_BUNDLE_VERSION)"' \
+	yq -i '.dependencies[0].value.version="$(ADDON_VERSION)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/metadata/dependencies.yaml
 
 	yq -i 'del(.status)' \
@@ -102,6 +137,9 @@ bundle/cos-fleetshard-operator-debezium: operator-sdk
 
 	yq -i '.metadata.annotations."olm.skipRange"=">=$(SKIP_RANGE_START) <$(ADDON_VERSION)"' \
 		$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium.clusterserviceversion.yaml
+
+	yq -i '.spec.replaces="$(DEBEZIUM_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
+			$(ADDON_PATH)/cos-fleetshard-operator-debezium/$(ADDON_VERSION)/manifests/cos-fleetshard-operator-debezium.clusterserviceversion.yaml
 
 bundle/cos-fleetshard-sync: operator-sdk
 	./hack/bundle.sh \
@@ -130,6 +168,9 @@ bundle/cos-fleetshard-sync: operator-sdk
 
 	yq -i '.metadata.annotations."olm.skipRange"=">=$(SKIP_RANGE_START) <$(ADDON_VERSION)"' \
 		$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync.clusterserviceversion.yaml
+
+	yq -i '.spec.replaces="$(SYNC_BUNDLE_NAME).$(PREVIOUS_TAG)"' \
+			$(ADDON_PATH)/main/$(ADDON_VERSION)/manifests/cos-fleetshard-sync.clusterserviceversion.yaml
 
 #
 # Helpers
