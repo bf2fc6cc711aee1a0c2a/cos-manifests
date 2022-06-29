@@ -10,7 +10,9 @@ metadata:
     operators.operatorframework.io/internal-objects: '["builds.camel.apache.org","integrationkits.camel.apache.org","camelcatalogs.camel.apache.org"]'
     repository: https://github.com/apache/camel-k
     support: Camel
-  name: camel-k-operator.v1.9.0-snapshot-cd1831146a
+    cos.bf2.org/underlying-version: 1.9.0-snapshot-cd1831146a
+    olm.skipRange: '>=1.1.6 <1.1.11'
+  name: camel-k-operator.v1.1.11
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -438,4 +440,5 @@ spec:
   selector:
     matchLabels:
       name: camel-k-operator
-  version: 1.9.0-snapshot-cd1831146a
+  version: 1.1.11
+  replaces: camel-k-operator.v1.1.10
