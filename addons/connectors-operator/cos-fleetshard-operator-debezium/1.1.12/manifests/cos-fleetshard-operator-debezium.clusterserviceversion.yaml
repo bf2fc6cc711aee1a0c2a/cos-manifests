@@ -104,7 +104,7 @@ spec:
                         value: cos-fleetshard-operator-debezium
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:8650f6d8de3f51a3d158f23d3872d42e5e9901ac17127fa49884450f6e71ce2d
+                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:1566dd8f35193b4caadd7de094dcbdc9bdaa992004f44de33af4c2823c39ca65
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3

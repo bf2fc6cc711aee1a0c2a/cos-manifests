@@ -102,7 +102,7 @@ spec:
                         value: cos-fleetshard-operator-camel
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-camel@sha256:284d1e0cd6807d48ba3e23807d69b9f838d4571258b6cffd25c356448e344eff
+                    image: quay.io/rhoas/cos-fleetshard-operator-camel@sha256:58d0a1a2899f860037c6b2d6132f9ac603ec870c555662c68e5e0014ee4836ae
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
