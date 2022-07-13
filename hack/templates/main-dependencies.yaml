@@ -7,3 +7,7 @@ dependencies:
     value:
       packageName: cos-fleetshard-operator-debezium
       version: placeholder
+  - type: olm.package
+    value:
+      packageName: observability-operator
+      version: 3.0.11
