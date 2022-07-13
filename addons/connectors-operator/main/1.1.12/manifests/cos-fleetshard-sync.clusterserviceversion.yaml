@@ -54,6 +54,13 @@ spec:
                 - update
                 - watch
             - apiGroups:
+                - apiextensions.k8s.io
+              resources:
+                - customresourcedefinitions
+              verbs:
+                - get
+                - list
+            - apiGroups:
                 - ""
               resources:
                 - events
@@ -114,11 +121,11 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
-                      - name: SMALLRYE_CONFIG_LOCATIONS
-                        value: /mnt/app-config
                       - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
                         value: /mnt/app-secret
-                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:1afa64358ba0a17527008fda1882cee936009e71d9431c98211ce25d6f694a90
+                      - name: SMALLRYE_CONFIG_LOCATIONS
+                        value: /mnt/app-config
+                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:e60688e2724872ad03faf81518e009ce8daccbc4996acef2595c6f433be6256a
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -187,6 +194,18 @@ spec:
               verbs:
                 - get
                 - list
+                - watch
+            - apiGroups:
+                - observability.redhat.com
+              resources:
+                - observabilities
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
                 - watch
             - apiGroups:
                 - cos.bf2.org
