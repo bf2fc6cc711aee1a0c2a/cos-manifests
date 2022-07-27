@@ -5,8 +5,8 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
-    olm.skipRange: '>=1.1.6 <1.1.12'
-  name: cos-fleetshard-sync.v1.1.12
+    olm.skipRange: '>=1.1.6 <1.1.13'
+  name: cos-fleetshard-sync.v1.1.13
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -125,7 +125,7 @@ spec:
                         value: /mnt/app-secret
                       - name: SMALLRYE_CONFIG_LOCATIONS
                         value: /mnt/app-config
-                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:e60688e2724872ad03faf81518e009ce8daccbc4996acef2595c6f433be6256a
+                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:5920dd21495835af82fd6f50f15d3a17578037bd2d7bd34659889a817cd68685
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -208,6 +208,30 @@ spec:
                 - update
                 - watch
             - apiGroups:
+                - operators.coreos.com
+              resources:
+                - subscriptions
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
+                - ""
+              resources:
+                - configmaps
+              verbs:
+                - create
+                - delete
+                - get
+                - list
+                - patch
+                - update
+                - watch
+            - apiGroups:
                 - cos.bf2.org
               resources:
                 - managedconnectorclusters
@@ -248,5 +272,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.12
-  replaces: cos-fleetshard-sync.v1.1.11
+  version: 1.1.13
+  replaces: cos-fleetshard-sync.v1.1.12
