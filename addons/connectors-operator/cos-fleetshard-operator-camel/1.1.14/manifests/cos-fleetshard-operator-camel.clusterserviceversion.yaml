@@ -5,8 +5,8 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-camel
-    olm.skipRange: '>=1.1.6 <1.1.13'
-  name: cos-fleetshard-operator-camel.v1.1.13
+    olm.skipRange: '>=1.1.6 <1.1.14'
+  name: cos-fleetshard-operator-camel.v1.1.14
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
@@ -102,7 +102,7 @@ spec:
                         value: cos-fleetshard-operator-camel
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-camel@sha256:dd8447335a2be60ad1cee16f29f96d0eae6e3a8a1dac2e52206ac59c61467bea
+                    image: quay.io/rhoas/cos-fleetshard-operator-camel@sha256:5c34744b3ee4b6562cc2b3f79ea8f4469678c3d9a637355efb56066f41cb3531
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -161,5 +161,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.13
-  replaces: cos-fleetshard-operator-camel.v1.1.12
+  version: 1.1.14
+  replaces: cos-fleetshard-operator-camel.v1.1.13
