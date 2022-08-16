@@ -1,6 +1,6 @@
 apiVersion: v1
 data:
-  application.properties: |-
+  application.properties: |
     # all fleetshard logs
     quarkus.log.category."org.bf2.cos.fleetshard".level = INFO
 
@@ -8,8 +8,8 @@ data:
     quarkus.log.category."io.fabric8.kubernetes.client.internal.VersionUsageUtils".level = ERROR
 
     # debezium apicurio auth settings
-    cos.operator.debezium.apicurio.auth.service.url = "https://identity.api.stage.openshift.com/auth"
-    cos.operator.debezium.apicurio.auth.realm = "rhoas"
+    cos.operator.debezium.apicurio-auth-service-url = "https://identity.api.stage.openshift.com/auth"
+    cos.operator.debezium.apicurio-auth-realm = "rhoas"
 kind: ConfigMap
 metadata:
   name: cos-fleetshard-operator-debezium-config
