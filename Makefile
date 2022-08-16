@@ -25,7 +25,7 @@ export PATH := ${LOCAL_BIN_PATH}:$(PATH)
 bundles: bundle/camel-k bundle/strimzi bundle/cos-fleetshard-sync bundle/cos-fleetshard-operator-camel bundle/cos-fleetshard-operator-debezium
 
 #
-# bundles
+# Bundles
 #
 
 bundle/camel-k: operator-sdk
