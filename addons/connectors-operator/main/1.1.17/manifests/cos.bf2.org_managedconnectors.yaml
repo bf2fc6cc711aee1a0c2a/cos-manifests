@@ -20,17 +20,17 @@ spec:
     - jsonPath: .spec.connectorId
       name: CONNECTOR_ID
       type: string
-    - jsonPath: .spec.deployment.connectorTypeId
+    - jsonPath: .status.deployment.connectorTypeId
       name: CONNECTOR_TYPE_ID
       type: string
     - jsonPath: .spec.deploymentId
       name: DEPLOYMENT_ID
       type: string
-    - jsonPath: .status.connectorStatus.phase
-      name: deployment_phase
-      type: string
     - jsonPath: .status.phase
       name: PHASE
+      type: string
+    - jsonPath: .status.connectorStatus.phase
+      name: deployment_phase
       type: string
     name: v1alpha1
     schema:
