@@ -3,3 +3,5 @@ resources:
 images:
   - name: quay.io/rhoas/cos-camel-k
     digest: sha256:f42213014a5a5164abddb71984b24864e3b73044df2ab94ce76f5aec42b2864c
+  - name: "null"
+    digest: ""
