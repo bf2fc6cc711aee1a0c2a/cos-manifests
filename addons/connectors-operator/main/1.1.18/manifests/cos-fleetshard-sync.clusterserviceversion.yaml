@@ -5,8 +5,8 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
-    olm.skipRange: '>=1.1.6 <1.1.17'
-  name: cos-fleetshard-sync.v1.1.17
+    olm.skipRange: '>=1.1.6 <1.1.18'
+  name: cos-fleetshard-sync.v1.1.18
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -27,6 +27,13 @@ spec:
       clusterPermissions:
         - rules:
             - apiGroups:
+                - config.openshift.io
+              resources:
+                - clusterversions
+              verbs:
+                - get
+                - list
+            - apiGroups:
                 - cos.bf2.org
               resources:
                 - managedconnectors
@@ -43,6 +50,7 @@ spec:
             - apiGroups:
                 - ""
               resources:
+                - configmaps
                 - secrets
                 - namespaces
               verbs:
@@ -125,7 +133,7 @@ spec:
                         value: /mnt/app-config
                       - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
                         value: /mnt/app-secret
-                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:30c0e3295a6a26174bd0b094f325c6639491dd0865ab76df40311e5d0e17a505
+                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:03a2b938a12ff77f882084a14b7e8d801b9d165e4ac67b15b771e5e24e19d08e
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -220,18 +228,6 @@ spec:
                 - update
                 - watch
             - apiGroups:
-                - ""
-              resources:
-                - configmaps
-              verbs:
-                - create
-                - delete
-                - get
-                - list
-                - patch
-                - update
-                - watch
-            - apiGroups:
                 - cos.bf2.org
               resources:
                 - managedconnectorclusters
@@ -272,5 +268,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.17
-  replaces: cos-fleetshard-sync.v1.1.16
+  version: 1.1.18
+  replaces: cos-fleetshard-sync.v1.1.17
