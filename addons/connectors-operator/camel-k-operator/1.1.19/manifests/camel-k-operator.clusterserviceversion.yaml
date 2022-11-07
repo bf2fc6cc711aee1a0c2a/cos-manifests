@@ -2,7 +2,16 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: '[]'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "camel.apache.org/v1",
+          "kind": "IntegrationPlatform",
+          "metadata": {
+            "name": "camel-k"
+          }
+        }
+      ]
     capabilities: Full Lifecycle
     categories: Integration & Delivery
     certified: "false"
@@ -11,8 +20,8 @@ metadata:
     repository: https://github.com/apache/camel-k
     support: Camel
     cos.bf2.org/underlying-version: 1.10.1
-    olm.skipRange: '>=1.1.6 <1.1.18'
-  name: camel-k-operator.v1.1.18
+    olm.skipRange: '>=1.1.6 <1.1.19'
+  name: camel-k-operator.v1.1.19
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -89,6 +98,14 @@ spec:
     spec:
       clusterPermissions:
         - rules:
+            - apiGroups:
+                - ""
+              resourceNames:
+                - local-registry-hosting
+              resources:
+                - configmaps
+              verbs:
+                - get
             - apiGroups:
                 - camel.apache.org
               resources:
@@ -176,6 +193,7 @@ spec:
               resources:
                 - roles
                 - rolebindings
+                - clusterrolebindings
               verbs:
                 - create
                 - delete
@@ -371,6 +389,9 @@ spec:
               metadata:
                 labels:
                   app: camel-k
+                  app.kubernetes.io/component: operator
+                  app.kubernetes.io/name: camel-k
+                  app.kubernetes.io/version: 1.10.3-SNAPSHOT
                   camel.apache.org/component: operator
                   name: camel-k-operator
               spec:
@@ -387,6 +408,8 @@ spec:
                         value: "false"
                       - name: OPERATOR_NAME
                         value: camel-k
+                      - name: OPERATOR_ID
+                        value: camel-k
                       - name: POD_NAME
                         valueFrom:
                           fieldRef:
@@ -395,7 +418,7 @@ spec:
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
-                    image: quay.io/rhoas/cos-camel-k@sha256:f42213014a5a5164abddb71984b24864e3b73044df2ab94ce76f5aec42b2864c
+                    image: docker.io/apache/camel-k@sha256:45b5d4e32c3eb9231fc0c0870039c2966d6332260e096fa097b0076e51938159
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       httpGet:
@@ -407,7 +430,13 @@ spec:
                     ports:
                       - containerPort: 8080
                         name: metrics
-                    resources: {}
+                    resources:
+                      limits:
+                        cpu: "1"
+                        memory: 256Mi
+                      requests:
+                        cpu: 100m
+                        memory: 256Mi
                 serviceAccountName: camel-k-operator
     strategy: deployment
   installModes:
@@ -440,5 +469,5 @@ spec:
   selector:
     matchLabels:
       name: camel-k-operator
-  version: 1.1.18
-  replaces: camel-k-operator.v1.1.17
+  version: 1.1.19
+  replaces: camel-k-operator.v1.1.18
