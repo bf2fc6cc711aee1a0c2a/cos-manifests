@@ -1,8 +1,8 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-sync/?ref=v1.1.18
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-sync/?ref=v1.1.19
 images:
   - name: quay.io/rhoas/cos-fleetshard-sync
-    digest: sha256:03a2b938a12ff77f882084a14b7e8d801b9d165e4ac67b15b771e5e24e19d08e
+    digest: sha256:c6fd70145a3d1aff8dfefc89c5353c709d3b35ff0826aba16e5d57f49b955ddd
 patchesStrategicMerge:
   - |-
     apiVersion: apps/v1
