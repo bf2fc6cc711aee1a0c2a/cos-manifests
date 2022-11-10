@@ -29,7 +29,7 @@ EOT
 
 echo "Overwriting template ${TEMPLATE}"
 
-for D in "${BASE_DIR}"/connectors/*; do
+for D in "${BASE_DIR}"/cos-fleet-catalog-camel/*; do
     if [ -d ${D} ]; then
         CM_NAME=$(basename "${D}")
 
@@ -37,9 +37,9 @@ for D in "${BASE_DIR}"/connectors/*; do
         echo "-" >> ${TEMPLATE}
 
         kubectl create configmap "${CM_NAME}" \
-        --from-file="${BASE_DIR}/${CM_NAME}/" \
-        --dry-run=client \
-        -o yaml | sed -e 's/^/  /' >> $TEMPLATE
+          --from-file="${BASE_DIR}/cos-fleet-catalog-camel/${CM_NAME}/" \
+          --dry-run=client \
+          -o yaml | sed -e 's/^/  /' >> $TEMPLATE
     fi
 done
 
