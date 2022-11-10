@@ -1,0 +1,106 @@
+name: Build Catalog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "connectors/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref_name}}-${{ github.workflow }}
+  cancel-in-progress: true
+
+env:
+  LANG: en_US.UTF-8
+  CONNECTORS_DIR: connectors
+  PROJECTS: ${{ github.workspace }}
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        overlay:
+          - "dev"
+    steps:
+      - name: "Checkout Project"
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set versions
+        run: |
+          export C_VERSION="${GITHUB_REF_NAME#v}" 
+          export C_REVISION="${GITHUB_SHA}" 
+
+          echo "CONNECTORS_VERSION=${C_VERSION}" >> $GITHUB_ENV
+          echo "CONNECTORS_REVISION=${C_REVISION}" >> $GITHUB_ENV
+          echo "CONNECTORS_RELEASE=${C_VERSION}-${C_REVISION}" >> $GITHUB_ENV
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_MCI_USR }}
+          password: ${{ secrets.QUAY_MCI_PWD }}
+
+      - name: Generate Manifests
+        run: |
+          ./connectors/manifest.sh
+
+      - name: Build Catalog Image
+        run: |
+          docker build \
+            -t "quay.io/rhoas/cos-fleet-catalog-camel:${CONNECTORS_RELEASE}" \
+            -t "quay.io/rhoas/cos-fleet-catalog-camel:latest" \
+            -f etc/Dockerfile.catalog ./etc
+
+          docker push "quay.io/rhoas/cos-fleet-catalog-camel:${CONNECTORS_RELEASE}"
+          docker push "quay.io/rhoas/cos-fleet-catalog-camel:latest"
+
+      - name: "Update Kustomize overlay ${{ matrix.overlay }}"
+        uses: mikefarah/yq@master
+        env:
+          OVERLAY_PATH: kustomize/overlays/${{ matrix.overlay }}/control-plane/cos-fleet-catalog-camel
+        with:
+          cmd: |
+            yq -i '.images[0].newTag = strenv(CONNECTORS_RELEASE)' ${OVERLAY_PATH}/kustomization.yaml
+
+      - name: "Create PR for ${{ matrix.overlay }}"
+        env:
+          OVERLAY_PATH: kustomize/overlays/${{ matrix.overlay }}/control-plane/cos-fleet-catalog-camel
+          BRANCH_NAME: "cos-fleet-catalog-camel.${{ matrix.overlay }}.${{ env.CONNECTORS_RELEASE }}"
+        run: |
+          echo ""
+          echo "tag      : ${{ github.ref_name }}"
+          echo "version  : ${CONNECTORS_VERSION}"
+          echo "revision : ${CONNECTORS_REVISION}"
+          echo "release  : ${CONNECTORS_RELEASE}"
+          echo "branch   : ${BRANCH_NAME}"
+          echo ""
+
+          git config user.email "mas-connectors@redhat.com" 
+          git config user.name "mas-connectors"
+          git checkout -b ${BRANCH_NAME}
+
+          git status
+
+          git add ${CONNECTORS_DIR}
+          git add ${OVERLAY_PATH}
+          git commit -m "Update cos-fleet-catalog-camel kustomization images for overlay ${{ matrix.overlay }}" ${OVERLAY_PATH} 
+          git commit -m "Regen manifests" ${CONNECTORS_DIR}
+          git reset --hard
+          git push -u origin ${BRANCH_NAME}
+
+          # GH CLI can't find the branch on remote... needs some time :)
+          sleep 15
+
+          #gh config set prompt disabled
+          gh pr create \
+            --fill \
+            --base main \
+            --title "chore(kustomize): update cos-fleet-catalog-camel kustomization images overlay ${{ matrix.overlay }}" \
+            --body "sha: ${{ github.sha }}, overlay: ${{ matrix.overlay }}, tag: ${{ github.ref_name }}"
