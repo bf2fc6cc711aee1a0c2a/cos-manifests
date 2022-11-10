@@ -64,9 +64,8 @@ jobs:
       - name: "Update Kustomize overlay ${{ matrix.overlay }}"
         env:
           OVERLAY_PATH: kustomize/overlays/${{ matrix.overlay }}/control-plane/cos-fleet-catalog-camel
-        with:
-          run: |
-            yq -i '.images[0].newTag = strenv(CONNECTORS_RELEASE)' ${OVERLAY_PATH}/kustomization.yaml
+        run: |
+          yq -i '.images[0].newTag = strenv(CONNECTORS_RELEASE)' ${OVERLAY_PATH}/kustomization.yaml
 
       - name: "Create PR for ${{ matrix.overlay }}"
         env:
