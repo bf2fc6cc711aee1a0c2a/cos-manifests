@@ -56,7 +56,7 @@ jobs:
           docker build \
             -t "quay.io/rhoas/cos-fleet-catalog-camel:${CONNECTORS_RELEASE}" \
             -t "quay.io/rhoas/cos-fleet-catalog-camel:latest" \
-            -f etc/Dockerfile.catalog ./etc
+            -f connectors/Dockerfile.camel ./connectors
 
           docker push "quay.io/rhoas/cos-fleet-catalog-camel:${CONNECTORS_RELEASE}"
           docker push "quay.io/rhoas/cos-fleet-catalog-camel:latest"
