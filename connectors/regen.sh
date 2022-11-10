@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 
-DIR=$(dirname "${BASH_SOURCE[0]}")
-CONNECTORS_DIR="${DIR}/cos-fleet-catalog-camel"
 
-cat /dev/null > "${DIR}/kustomization.yaml"
+CONNECTORS_DIR="cos-fleet-catalog-camel"
+
+cat /dev/null > "kustomization.yaml"
 
 for D in "${CONNECTORS_DIR}"/*; do
 
