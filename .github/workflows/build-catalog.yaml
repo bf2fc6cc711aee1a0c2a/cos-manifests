@@ -62,11 +62,10 @@ jobs:
           docker push "quay.io/rhoas/cos-fleet-catalog-camel:latest"
 
       - name: "Update Kustomize overlay ${{ matrix.overlay }}"
-        uses: mikefarah/yq@master
         env:
           OVERLAY_PATH: kustomize/overlays/${{ matrix.overlay }}/control-plane/cos-fleet-catalog-camel
         with:
-          cmd: |
+          run: |
             yq -i '.images[0].newTag = strenv(CONNECTORS_RELEASE)' ${OVERLAY_PATH}/kustomization.yaml
 
       - name: "Create PR for ${{ matrix.overlay }}"
@@ -90,17 +89,37 @@ jobs:
 
           git add ${CONNECTORS_DIR}
           git add ${OVERLAY_PATH}
-          git commit -m "Update cos-fleet-catalog-camel kustomization images for overlay ${{ matrix.overlay }}" ${OVERLAY_PATH} 
-          git commit -m "Regen manifests" ${CONNECTORS_DIR}
-          git reset --hard
-          git push -u origin ${BRANCH_NAME}
 
-          # GH CLI can't find the branch on remote... needs some time :)
-          sleep 15
+          if [ -z "$(git status --untracked-files=no --porcelain)" ${OVERLAY_PATH} ${CONNECTORS_DIR} ]; then 
+            echo " Working directory clean excluding untracked files"            
+          else
 
-          #gh config set prompt disabled
-          gh pr create \
-            --fill \
-            --base main \
-            --title "chore(kustomize): update cos-fleet-catalog-camel kustomization images overlay ${{ matrix.overlay }}" \
-            --body "sha: ${{ github.sha }}, overlay: ${{ matrix.overlay }}, tag: ${{ github.ref_name }}"
+            if [ -z git status --untracked-files=no --porcelain ]; then 
+              echo "No files to commit"
+            fi
+            
+            if [ -z "$(git status --untracked-files=no --porcelain)" ${OVERLAY_PATH}]; then 
+              echo "No overlay files to commit"
+            else
+              git commit -m "Update cos-fleet-catalog-camel kustomization images for overlay ${{ matrix.overlay }}" ${OVERLAY_PATH} 
+            fi
+            
+            if [ -z "$(git status --untracked-files=no --porcelain)" ${CONNECTORS_DIR}]; then 
+              echo "No conenctor files to commit"
+            else
+              git commit -m "Regen manifests" ${CONNECTORS_DIR}
+            fi
+            
+            git reset --hard
+            git push -u origin ${BRANCH_NAME}
+
+            # GH CLI can't find the branch on remote... needs some time :)
+            sleep 15
+
+            #gh config set prompt disabled
+            gh pr create \
+              --fill \
+              --base main \
+              --title "chore(kustomize): update cos-fleet-catalog-camel kustomization images overlay ${{ matrix.overlay }}" \
+              --body "sha: ${{ github.sha }}, overlay: ${{ matrix.overlay }}, tag: ${{ github.ref_name }}"
+          fi
