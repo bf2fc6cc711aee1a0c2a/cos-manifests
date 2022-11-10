@@ -1,0 +1,9 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+name: cos-fleet-catalog-camel
+metadata:
+  name: cos-fleet-catalog-camel
+  annotations:
+    openshift.io/display-name: Cos Fleet Manager Connector Catalog
+    description: List of available camel connectors and metadata
+objects:
