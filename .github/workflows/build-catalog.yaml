@@ -89,21 +89,17 @@ jobs:
           git add ${CONNECTORS_DIR}
           git add ${OVERLAY_PATH}
 
-          if [ -z "$(git status --untracked-files=no --porcelain)" ${OVERLAY_PATH} ${CONNECTORS_DIR} ]; then 
+          if [ -z "$(git status --untracked-files=no --porcelain ${OVERLAY_PATH} ${CONNECTORS_DIR})" ]; then 
             echo " Working directory clean excluding untracked files"            
           else
-
-            if [ -z git status --untracked-files=no --porcelain ]; then 
-              echo "No files to commit"
-            fi
             
-            if [ -z "$(git status --untracked-files=no --porcelain)" ${OVERLAY_PATH}]; then 
+            if [ -z "$(git status --untracked-files=no --porcelain ${OVERLAY_PATH})" ]; then 
               echo "No overlay files to commit"
             else
               git commit -m "Update cos-fleet-catalog-camel kustomization images for overlay ${{ matrix.overlay }}" ${OVERLAY_PATH} 
             fi
             
-            if [ -z "$(git status --untracked-files=no --porcelain)" ${CONNECTORS_DIR}]; then 
+            if [ -z "$(git status --untracked-files=no --porcelain ${CONNECTORS_DIR})" ]; then 
               echo "No conenctor files to commit"
             else
               git commit -m "Regen manifests" ${CONNECTORS_DIR}
