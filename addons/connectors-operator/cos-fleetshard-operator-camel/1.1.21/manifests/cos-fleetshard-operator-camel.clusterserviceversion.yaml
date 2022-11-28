@@ -4,14 +4,14 @@ metadata:
   annotations:
     alm-examples: '[]'
     capabilities: Basic Install
-    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-debezium
-    olm.skipRange: '>=1.1.6 <1.1.20'
-  name: cos-fleetshard-operator-debezium.v1.1.20
+    repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-camel
+    olm.skipRange: '>=1.1.6 <1.1.21'
+  name: cos-fleetshard-operator-camel.v1.1.21
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: The cos-fleetshard-operator-debezium is responsible for managing Debezium connectors.
-  displayName: cos-fleetshard-operator-debezium
+  description: The cos-fleetshard-operator-camel is responsible for managing Camel K connectors.
+  displayName: cos-fleetshard-operator-camel
   install:
     spec:
       clusterPermissions:
@@ -47,10 +47,9 @@ spec:
                 - update
                 - watch
             - apiGroups:
-                - kafka.strimzi.io
+                - camel.apache.org
               resources:
-                - kafkaconnects
-                - kafkaconnectors
+                - kameletbindings
               verbs:
                 - create
                 - delete
@@ -69,14 +68,14 @@ spec:
                 - get
                 - list
                 - watch
-          serviceAccountName: cos-fleetshard-operator-debezium
+          serviceAccountName: cos-fleetshard-operator-camel
       deployments:
-        - name: cos-fleetshard-operator-debezium
+        - name: cos-fleetshard-operator-camel
           spec:
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/name: cos-fleetshard-operator-debezium
+                app.kubernetes.io/name: cos-fleetshard-operator-camel
                 app.kubernetes.io/part-of: cos
                 app.kubernetes.io/version: latest
             strategy: {}
@@ -88,7 +87,7 @@ spec:
                   prometheus.io/scheme: http
                   prometheus.io/scrape: "true"
                 labels:
-                  app.kubernetes.io/name: cos-fleetshard-operator-debezium
+                  app.kubernetes.io/name: cos-fleetshard-operator-camel
                   app.kubernetes.io/part-of: cos
                   app.kubernetes.io/version: latest
               spec:
@@ -103,10 +102,10 @@ spec:
                       - name: OVERRIDE_PROPERTIES_LOCATION
                         value: /mnt/app-config/override/override.properties
                       - name: COS_OPERATOR_ID
-                        value: cos-fleetshard-operator-debezium
+                        value: cos-fleetshard-operator-camel
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:d94225bd990f9ae689b797bf04366ec1ffabb70a15166ea41f466f8cb771913c
+                    image: quay.io/rhoas/cos-fleetshard-operator-camel@sha256:f1934557148699c402391f94d2de87ac84a525ae8609b1b540f7aed5a42a75c5
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -117,7 +116,7 @@ spec:
                       periodSeconds: 30
                       successThreshold: 1
                       timeoutSeconds: 10
-                    name: cos-fleetshard-operator-debezium
+                    name: cos-fleetshard-operator-camel
                     ports:
                       - containerPort: 8080
                         name: http
@@ -134,10 +133,10 @@ spec:
                     resources:
                       limits:
                         cpu: "1"
-                        memory: 512Mi
+                        memory: 600Mi
                       requests:
                         cpu: 500m
-                        memory: 512Mi
+                        memory: 600Mi
                     volumeMounts:
                       - mountPath: /mnt/app-config/configuration
                         name: app-config
@@ -145,16 +144,16 @@ spec:
                         name: app-config-override
                 imagePullSecrets:
                   - name: addon-pullsecret
-                serviceAccountName: cos-fleetshard-operator-debezium
+                serviceAccountName: cos-fleetshard-operator-camel
                 volumes:
                   - configMap:
                       defaultMode: 420
-                      name: cos-fleetshard-operator-debezium-config
+                      name: cos-fleetshard-operator-camel-config
                       optional: false
                     name: app-config
                   - configMap:
                       defaultMode: 420
-                      name: cos-fleetshard-operator-debezium-config-override
+                      name: cos-fleetshard-operator-camel-config-override
                       optional: true
                     name: app-config-override
     strategy: deployment
@@ -173,5 +172,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.20
-  replaces: cos-fleetshard-operator-debezium.
+  version: 1.1.21
+  replaces: cos-fleetshard-operator-camel.v1.1.20
