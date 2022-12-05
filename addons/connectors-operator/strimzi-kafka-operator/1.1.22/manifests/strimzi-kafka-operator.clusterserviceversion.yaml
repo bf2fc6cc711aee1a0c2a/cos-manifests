@@ -11,12 +11,12 @@ metadata:
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Strimzi
     cos.bf2.org/underlying-version: 0.28.0
-    olm.skipRange: '>=1.1.6 <1.1.21'
+    olm.skipRange: '>=1.1.6 <1.1.22'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: strimzi-kafka-operator.v1.1.21
+  name: strimzi-kafka-operator.v1.1.22
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -390,6 +390,12 @@ spec:
                     env:
                       - name: STRIMZI_NAMESPACE
                         value: '*'
+                      - name: STRIMZI_LOG_LEVEL
+                        valueFrom:
+                          configMapKeyRef:
+                            key: log.level
+                            name: strimzi-override-config
+                            optional: true
                       - name: STRIMZI_FULL_RECONCILIATION_INTERVAL_MS
                         value: "120000"
                       - name: STRIMZI_OPERATION_TIMEOUT_MS
@@ -726,5 +732,5 @@ spec:
   selector:
     matchLabels:
       name: strimzi-cluster-operator
-  version: 1.1.21
-  replaces: strimzi-kafka-operator.v1.1.20
+  version: 1.1.22
+  replaces: strimzi-kafka-operator.v1.1.21
