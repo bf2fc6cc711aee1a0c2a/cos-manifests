@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-        "connector_revision" : 74,
+        "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+        "connector_revision" : 75,
         "connector_type" : "sink",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
@@ -138,7 +138,10 @@
             "stop" : { }
           }
         },
-        "processors" : { }
+        "processors" : {
+          "type" : "object",
+          "additionalProperties" : false
+        }
       },
       "$defs" : {
         "data_shape" : {
