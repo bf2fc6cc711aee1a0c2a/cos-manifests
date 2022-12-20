@@ -20,8 +20,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-cloudwatch:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-cloudwatch:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -155,7 +155,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -210,8 +213,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-ddb:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-ddb:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -358,7 +361,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -413,8 +419,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-ddb-streams:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-ddb-streams:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -560,7 +566,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -615,8 +624,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-kinesis:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-kinesis:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -753,7 +762,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -821,8 +833,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-kinesis:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-kinesis:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -965,7 +977,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -1033,8 +1048,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-lambda:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-lambda:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -1157,7 +1172,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -1212,8 +1230,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-s3:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-s3:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -1358,7 +1376,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -1413,8 +1434,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-s3:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-s3:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -1584,7 +1605,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -1639,8 +1663,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-ses:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-ses:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -1764,7 +1788,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -1819,8 +1846,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-sns:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-sns:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -1960,7 +1987,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -2015,8 +2045,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-sqs:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-sqs:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2169,7 +2199,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -2224,8 +2257,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-sqs:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-sqs:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2395,7 +2428,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -2457,8 +2493,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2572,7 +2608,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -2627,8 +2666,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2769,7 +2808,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -2837,8 +2879,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-functions:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-functions:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2949,7 +2991,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3004,8 +3049,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob-changefeed:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob-changefeed:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3115,7 +3160,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3170,8 +3218,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3292,7 +3340,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3347,8 +3398,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3475,7 +3526,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3530,8 +3584,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3640,7 +3694,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3695,8 +3752,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3811,7 +3868,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -3873,8 +3933,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-bigquery:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-bigquery:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -3987,7 +4047,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4042,8 +4105,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-functions:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-functions:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -4156,7 +4219,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4211,8 +4277,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-pubsub:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-pubsub:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -4320,7 +4386,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4375,8 +4444,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-pubsub:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-pubsub:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -4502,7 +4571,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4557,8 +4629,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -4667,7 +4739,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4722,8 +4797,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -4838,7 +4913,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -4900,8 +4978,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-ansible-tower:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-ansible-tower:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -5027,7 +5105,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5082,8 +5163,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-splunk:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-splunk:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -5238,7 +5319,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5300,8 +5384,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-http:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 75,
+              "connector_image" : "quay.io/rhoas/cos-connector-http:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 76,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -5398,7 +5482,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5453,8 +5540,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jms-amqp-10:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jms-amqp-10:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -5555,7 +5642,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5610,8 +5700,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jms-amqp-10:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jms-amqp-10:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -5712,7 +5802,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5767,8 +5860,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jms-apache-artemis:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jms-apache-artemis:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -5870,7 +5963,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -5925,8 +6021,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jms-apache-artemis:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jms-apache-artemis:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -6027,7 +6123,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6082,8 +6181,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-rest-openapi:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-rest-openapi:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -6186,7 +6285,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6248,8 +6350,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-data-generator:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-data-generator:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -6351,7 +6453,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6413,8 +6518,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -6553,7 +6658,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6608,8 +6716,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -6748,7 +6856,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6803,8 +6914,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-elasticsearch:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-elasticsearch:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -6932,7 +7043,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -6987,8 +7101,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mongodb:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mongodb:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -7118,7 +7232,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -7173,8 +7290,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mongodb:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mongodb:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -7304,7 +7421,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -7366,8 +7486,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -7477,7 +7597,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -7532,8 +7655,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -7643,7 +7766,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -7698,8 +7824,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-jira:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -7815,7 +7941,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -7870,8 +7999,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -8007,7 +8136,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8062,8 +8194,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -8193,7 +8325,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8248,8 +8383,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -8384,7 +8519,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8439,8 +8577,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -8581,7 +8719,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8643,8 +8784,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-slack:main-6faf448b797f4439c3c9e850f3bb92d4cd49c550",
-              "connector_revision" : 75,
+              "connector_image" : "quay.io/rhoas/cos-connector-slack:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 76,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -8763,7 +8904,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8818,8 +8962,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-slack:main-6faf448b797f4439c3c9e850f3bb92d4cd49c550",
-              "connector_revision" : 75,
+              "connector_image" : "quay.io/rhoas/cos-connector-slack:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 76,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -8930,7 +9074,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -8985,8 +9132,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -9089,7 +9236,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -9144,8 +9294,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -9243,7 +9393,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -9305,8 +9458,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-redshift:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-redshift:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -9433,7 +9586,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -9488,8 +9644,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-aws-redshift:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-aws-redshift:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -9628,7 +9784,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -9683,8 +9842,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mariadb:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mariadb:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -9811,7 +9970,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -9866,8 +10028,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mariadb:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mariadb:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10000,7 +10162,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10055,8 +10220,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mysql:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mysql:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10183,7 +10348,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10238,8 +10406,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-mysql:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-mysql:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10372,7 +10540,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10427,8 +10598,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-postgresql:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-postgresql:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10555,7 +10726,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10610,8 +10784,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-postgresql:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-postgresql:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10744,7 +10918,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10799,8 +10976,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sqlserver:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-sqlserver:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -10939,7 +11116,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -10994,8 +11174,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sqlserver:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-sqlserver:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
@@ -11140,7 +11320,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -11202,8 +11385,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11335,7 +11518,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -11390,8 +11576,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11529,7 +11715,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -11584,8 +11773,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11714,7 +11903,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -11769,8 +11961,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11905,7 +12097,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -11960,8 +12155,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -12093,7 +12288,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
@@ -12148,8 +12346,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-89015f237880c5b81a2d3b4587f3ec0692a83cea",
-              "connector_revision" : 74,
+              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+              "connector_revision" : 75,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -12293,7 +12491,10 @@ objects:
                   "stop" : { }
                 }
               },
-              "processors" : { }
+              "processors" : {
+                "type" : "object",
+                "additionalProperties" : false
+              }
             },
             "$defs" : {
               "data_shape" : {
