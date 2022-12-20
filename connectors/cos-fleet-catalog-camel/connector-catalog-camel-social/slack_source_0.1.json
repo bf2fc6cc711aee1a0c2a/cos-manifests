@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-slack:main-6faf448b797f4439c3c9e850f3bb92d4cd49c550",
-        "connector_revision" : 75,
+        "connector_image" : "quay.io/rhoas/cos-connector-slack:main-e5b4cbc761203e751b947eaee1eb54c188a0079f",
+        "connector_revision" : 76,
         "connector_type" : "source",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
@@ -119,7 +119,10 @@
             "stop" : { }
           }
         },
-        "processors" : { }
+        "processors" : {
+          "type" : "object",
+          "additionalProperties" : false
+        }
       },
       "$defs" : {
         "data_shape" : {
