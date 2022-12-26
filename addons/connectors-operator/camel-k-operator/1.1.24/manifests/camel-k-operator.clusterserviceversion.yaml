@@ -20,8 +20,8 @@ metadata:
     repository: https://github.com/apache/camel-k
     support: Camel
     cos.bf2.org/underlying-version: 1.10.1
-    olm.skipRange: '>=1.1.6 <1.1.23'
-  name: camel-k-operator.v1.1.23
+    olm.skipRange: '>=1.1.6 <1.1.24'
+  name: camel-k-operator.v1.1.24
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -475,5 +475,5 @@ spec:
   selector:
     matchLabels:
       name: camel-k-operator
-  version: 1.1.23
-  replaces: camel-k-operator.v1.1.22
+  version: 1.1.24
+  replaces: camel-k-operator.v1.1.23
