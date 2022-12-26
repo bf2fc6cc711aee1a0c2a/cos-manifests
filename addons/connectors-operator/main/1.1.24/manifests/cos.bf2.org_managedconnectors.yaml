@@ -187,6 +187,7 @@ spec:
                 - Transferring
                 - Transferred
                 - Error
+                - id
                 type: string
             type: object
         type: object
