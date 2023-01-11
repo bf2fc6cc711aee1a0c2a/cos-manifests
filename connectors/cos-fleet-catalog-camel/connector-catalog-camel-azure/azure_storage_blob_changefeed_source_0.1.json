@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob-changefeed:main-30b390ccdef3f918d7f7b07e0b27db78f090b280",
-        "connector_revision" : 76,
+        "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob-changefeed:main-e4dcd8d5756f47facd377aaed00a224e48c0e617",
+        "connector_revision" : 77,
         "connector_type" : "source",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
