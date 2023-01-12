@@ -7,10 +7,10 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-rest-openapi:main-d744c54fba5fa32ece2a77751968b2fd55cacce7",
-        "connector_revision" : 77,
+        "connector_image" : "quay.io/rhoas/cos-connector-rest-openapi:main-aa144abab24d72b8c006a61e48db7d4ace74b964",
+        "connector_revision" : 78,
         "connector_type" : "sink",
-        "consumes" : "application/octet-stream",
+        "consumes" : "application/json",
         "error_handler_strategy" : "stop",
         "kamelets" : {
           "adapter" : {
@@ -126,8 +126,8 @@
               "format" : {
                 "type" : "string",
                 "description" : "The format of the data that Kafka sends to the sink connector.",
-                "default" : "application/octet-stream",
-                "enum" : [ "application/octet-stream" ]
+                "default" : "application/json",
+                "enum" : [ "application/json" ]
               }
             }
           }
