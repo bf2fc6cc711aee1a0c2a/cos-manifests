@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-32675c79a75286c10d80beb696486d3d63674df5",
-        "connector_revision" : 79,
+        "connector_image" : "quay.io/rhoas/cos-connector-salesforce:main-3452bc0d30bb601cbb2c6d3735f6f3fe88237854",
+        "connector_revision" : 80,
         "connector_type" : "sink",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
