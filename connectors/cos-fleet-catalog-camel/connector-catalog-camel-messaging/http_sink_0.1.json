@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-http:main-3452bc0d30bb601cbb2c6d3735f6f3fe88237854",
-        "connector_revision" : 81,
+        "connector_image" : "quay.io/rhoas/cos-connector-http:main-a438d578f6cd28b824263faee25fa851cda5b6b6",
+        "connector_revision" : 82,
         "connector_type" : "sink",
         "consumes" : "application/octet-stream",
         "error_handler_strategy" : "stop",
