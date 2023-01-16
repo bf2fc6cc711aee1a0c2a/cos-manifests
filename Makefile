@@ -68,9 +68,6 @@ bundle/strimzi: operator-sdk
 	yq -i 'del(.spec.install.spec.deployments[].label)' \
 		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
 	
-# remove unecessary clusterrolebinding
-	rm $(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-cluster-operator-topic-operator-delegation_rbac.authorization.k8s.io_v1_clusterrolebinding.yaml
-	
 # add annotation with real strimzi version
 	yq -i '.metadata.annotations."cos.bf2.org/underlying-version"="$(STRIMZI_BUNDLE_VERSION)"' \
 		$(ADDON_PATH)/strimzi-kafka-operator/$(ADDON_VERSION)/manifests/strimzi-kafka-operator.clusterserviceversion.yaml
