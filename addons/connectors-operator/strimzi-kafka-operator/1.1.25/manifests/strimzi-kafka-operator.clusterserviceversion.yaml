@@ -10,13 +10,13 @@ metadata:
     operators.openshift.io/infrastructure-features: '["Disconnected", "Proxy"]'
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Strimzi
-    cos.bf2.org/underlying-version: 0.28.0
-    olm.skipRange: '>=1.1.6 <1.1.24'
+    cos.bf2.org/underlying-version: 0.32.0
+    olm.skipRange: '>=1.1.6 <1.1.25'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: strimzi-kafka-operator.v1.1.24
+  name: strimzi-kafka-operator.v1.1.25
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -150,39 +150,6 @@ spec:
               verbs:
                 - list
             - apiGroups:
-                - kafka.strimzi.io
-              resources:
-                - kafkatopics
-                - kafkatopics/status
-                - kafkausers
-                - kafkausers/status
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - patch
-                - update
-                - delete
-            - apiGroups:
-                - ""
-              resources:
-                - events
-              verbs:
-                - create
-            - apiGroups:
-                - ""
-              resources:
-                - secrets
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
                 - ""
               resources:
                 - nodes
@@ -194,48 +161,13 @@ spec:
                 - nodes
               verbs:
                 - get
-            - apiGroups:
-                - rbac.authorization.k8s.io
-              resources:
-                - rolebindings
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - rbac.authorization.k8s.io
-              resources:
-                - roles
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
             - apiGroups:
                 - ""
               resources:
                 - pods
-                - serviceaccounts
-                - configmaps
-                - services
-                - endpoints
-                - secrets
-                - persistentvolumeclaims
               verbs:
-                - get
-                - list
                 - watch
-                - create
-                - delete
-                - patch
-                - update
+                - list
             - apiGroups:
                 - kafka.strimzi.io
               resources:
@@ -266,97 +198,6 @@ spec:
               resources:
                 - strimzipodsets
                 - strimzipodsets/status
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - extensions
-              resources:
-                - deployments
-                - deployments/scale
-                - replicasets
-                - replicationcontrollers
-                - networkpolicies
-                - ingresses
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - apps
-              resources:
-                - deployments
-                - deployments/scale
-                - deployments/status
-                - statefulsets
-                - replicasets
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - ""
-              resources:
-                - events
-              verbs:
-                - create
-            - apiGroups:
-                - build.openshift.io
-              resources:
-                - buildconfigs
-                - buildconfigs/instantiate
-                - builds
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - networking.k8s.io
-              resources:
-                - networkpolicies
-                - ingresses
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - route.openshift.io
-              resources:
-                - routes
-                - routes/custom-host
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - policy
-              resources:
-                - poddisruptionbudgets
               verbs:
                 - get
                 - list
@@ -401,51 +242,69 @@ spec:
                       - name: STRIMZI_OPERATION_TIMEOUT_MS
                         value: "300000"
                       - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
-                      - name: STRIMZI_DEFAULT_TLS_SIDECAR_CRUISE_CONTROL_IMAGE
-                        value: quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_KAFKA_IMAGES
                         value: |
-                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
-                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_KAFKA_CONNECT_IMAGES
                         value: |
-                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
-                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
                         value: |
-                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
-                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
                         value: |
-                          3.0.0=quay.io/strimzi/kafka:0.28.0-kafka-3.0.0
-                          3.1.0=quay.io/strimzi/kafka:0.28.0-kafka-3.1.0
+                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
                       - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-                        value: quay.io/strimzi/operator:0.28.0
+                        value: quay.io/strimzi/operator:0.32.0
                       - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-                        value: quay.io/strimzi/operator:0.28.0
+                        value: quay.io/strimzi/operator:0.32.0
                       - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-                        value: quay.io/strimzi/operator:0.28.0
+                        value: quay.io/strimzi/operator:0.32.0
                       - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-                        value: quay.io/strimzi/kafka-bridge:0.21.4
+                        value: quay.io/strimzi/kafka-bridge:0.22.3
                       - name: STRIMZI_DEFAULT_JMXTRANS_IMAGE
-                        value: quay.io/strimzi/jmxtrans:0.28.0
+                        value: quay.io/strimzi/jmxtrans:0.32.0
                       - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE
-                        value: quay.io/strimzi/kaniko-executor:0.28.0
+                        value: quay.io/strimzi/kaniko-executor:0.32.0
                       - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-                        value: quay.io/strimzi/maven-builder:0.28.0
+                        value: quay.io/strimzi/maven-builder:0.32.0
                       - name: STRIMZI_OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
                             fieldPath: metadata.namespace
                       - name: STRIMZI_FEATURE_GATES
+                      - name: STRIMZI_LEADER_ELECTION_ENABLED
+                        value: "true"
+                      - name: STRIMZI_LEADER_ELECTION_LEASE_NAME
+                        value: strimzi-cluster-operator
+                      - name: STRIMZI_LEADER_ELECTION_LEASE_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.namespace
+                      - name: STRIMZI_LEADER_ELECTION_IDENTITY
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.name
                       - name: STRIMZI_CUSTOM_RESOURCE_SELECTOR
                         value: cos.bf2.org/operator.type=debezium-connector-operator
-                    image: quay.io/strimzi/operator@sha256:8b010c5fb8244b742a37f264feefc116d75bb2abd2d6895375cbeea250727b39
+                    image: quay.io/strimzi/operator@sha256:c5e0e5dca7503a8371b8d366db0f49e3fc68f62ea480262e39b6cc277991c97c
                     livenessProbe:
                       httpGet:
                         path: /healthy
@@ -528,44 +387,6 @@ spec:
                 - patch
                 - update
             - apiGroups:
-                - kafka.strimzi.io
-              resources:
-                - kafkas
-                - kafkas/status
-                - kafkaconnects
-                - kafkaconnects/status
-                - kafkaconnectors
-                - kafkaconnectors/status
-                - kafkamirrormakers
-                - kafkamirrormakers/status
-                - kafkabridges
-                - kafkabridges/status
-                - kafkamirrormaker2s
-                - kafkamirrormaker2s/status
-                - kafkarebalances
-                - kafkarebalances/status
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
-                - core.strimzi.io
-              resources:
-                - strimzipodsets
-                - strimzipodsets/status
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
                 - extensions
               resources:
                 - deployments
@@ -600,6 +421,7 @@ spec:
                 - update
             - apiGroups:
                 - ""
+                - events.k8s.io
               resources:
                 - events
               verbs:
@@ -689,6 +511,70 @@ spec:
                 - delete
                 - patch
                 - update
+            - apiGroups:
+                - coordination.k8s.io
+              resources:
+                - leases
+              verbs:
+                - create
+            - apiGroups:
+                - coordination.k8s.io
+              resourceNames:
+                - strimzi-cluster-operator
+              resources:
+                - leases
+              verbs:
+                - get
+                - list
+                - watch
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+              verbs:
+                - watch
+                - list
+            - apiGroups:
+                - kafka.strimzi.io
+              resources:
+                - kafkas
+                - kafkas/status
+                - kafkaconnects
+                - kafkaconnects/status
+                - kafkaconnectors
+                - kafkaconnectors/status
+                - kafkamirrormakers
+                - kafkamirrormakers/status
+                - kafkabridges
+                - kafkabridges/status
+                - kafkamirrormaker2s
+                - kafkamirrormaker2s/status
+                - kafkarebalances
+                - kafkarebalances/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - core.strimzi.io
+              resources:
+                - strimzipodsets
+                - strimzipodsets/status
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
           serviceAccountName: strimzi-cluster-operator
     strategy: deployment
   installModes:
@@ -732,5 +618,5 @@ spec:
   selector:
     matchLabels:
       name: strimzi-cluster-operator
-  version: 1.1.24
-  replaces: strimzi-kafka-operator.v1.1.23
+  version: 1.1.25
+  replaces: strimzi-kafka-operator.v1.1.24

@@ -5,8 +5,8 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-sync
-    olm.skipRange: '>=1.1.6 <1.1.24'
-  name: cos-fleetshard-sync.v1.1.24
+    olm.skipRange: '>=1.1.6 <1.1.25'
+  name: cos-fleetshard-sync.v1.1.25
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -135,7 +135,7 @@ spec:
                         value: /mnt/app-config/configuration
                       - name: SMALLRYE_CONFIG_SOURCE_FILE_LOCATIONS
                         value: /mnt/app-secret
-                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:95408bf94f05bc3f1056027713e9529193465115abb7da676740f754e311c3d5
+                    image: quay.io/rhoas/cos-fleetshard-sync@sha256:9f861c835446b2feb197904e51bc06fd1e67663a48efd3ea534897be4b0ac43f
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -277,5 +277,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.24
-  replaces: cos-fleetshard-sync.v1.1.23
+  version: 1.1.25
+  replaces: cos-fleetshard-sync.v1.1.24

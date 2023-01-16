@@ -117,6 +117,10 @@ spec:
                     description: Enable or disable TLS hostname verification. Default
                       value is `false`.
                     type: boolean
+                  enableMetrics:
+                    description: Enable or disable OAuth metrics. Default value is
+                      `false`.
+                    type: boolean
                   maxTokenExpirySeconds:
                     description: Set or limit time-to-live of the access tokens to
                       the specified number of seconds. This should be set if the authorization
@@ -184,8 +188,8 @@ spec:
                     description: Authorization server token endpoint URI.
                     type: string
                   type:
-                    description: Authentication type. Currently the only supported
-                      types are `tls`, `scram-sha-256`, `scram-sha-512`, and `plain`.
+                    description: Authentication type. Currently the supported types
+                      are `tls`, `scram-sha-256`, `scram-sha-512`, `plain`, and 'oauth'.
                       `scram-sha-256` and `scram-sha-512` types use SASL SCRAM-SHA-256
                       and SASL SCRAM-SHA-512 Authentication, respectively. `plain`
                       type uses SASL PLAIN Authentication. `oauth` type uses SASL
@@ -614,12 +618,13 @@ spec:
                 type: object
               rack:
                 description: Configuration of the node label which will be used as
-                  the client.rack consumer configuration.
+                  the `client.rack` consumer configuration.
                 properties:
                   topologyKey:
                     description: A key that matches labels assigned to the Kubernetes
-                      cluster nodes. The value of the label is used to set the broker's
-                      `broker.rack` config and `client.rack` in Kafka Connect.
+                      cluster nodes. The value of the label is used to set a broker's
+                      `broker.rack` config, and the `client.rack` config for Kafka
+                      Connect or MirrorMaker 2.0.
                     example: topology.kubernetes.io/zone
                     type: string
                 required:
@@ -1246,7 +1251,7 @@ spec:
                       tmpDirSizeLimit:
                         description: Defines the total amount (for example `1Gi`)
                           of local storage required for temporary EmptyDir volume
-                          (`/tmp`). Default value is `1Mi`.
+                          (`/tmp`). Default value is `5Mi`.
                         pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                         type: string
                       tolerations:
@@ -1288,8 +1293,18 @@ spec:
                                   type: object
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
+                            matchLabelKeys:
+                              items:
+                                type: string
+                              type: array
                             maxSkew:
                               type: integer
+                            minDomains:
+                              type: integer
+                            nodeAffinityPolicy:
+                              type: string
+                            nodeTaintsPolicy:
+                              type: string
                             topologyKey:
                               type: string
                             whenUnsatisfiable:
@@ -1957,7 +1972,7 @@ spec:
                       tmpDirSizeLimit:
                         description: Defines the total amount (for example `1Gi`)
                           of local storage required for temporary EmptyDir volume
-                          (`/tmp`). Default value is `1Mi`.
+                          (`/tmp`). Default value is `5Mi`.
                         pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                         type: string
                       tolerations:
@@ -1999,8 +2014,18 @@ spec:
                                   type: object
                                   x-kubernetes-preserve-unknown-fields: true
                               type: object
+                            matchLabelKeys:
+                              items:
+                                type: string
+                              type: array
                             maxSkew:
                               type: integer
+                            minDomains:
+                              type: integer
+                            nodeAffinityPolicy:
+                              type: string
+                            nodeTaintsPolicy:
+                              type: string
                             topologyKey:
                               type: string
                             whenUnsatisfiable:
@@ -2082,9 +2107,12 @@ spec:
                 properties:
                   type:
                     description: Type of the tracing used. Currently the only supported
-                      type is `jaeger` for Jaeger tracing.
+                      types are `jaeger` for OpenTracing (Jaeger) tracing and `opentelemetry`
+                      for OpenTelemetry tracing. The OpenTracing (Jaeger) tracing
+                      is deprecated.
                     enum:
                     - jaeger
+                    - opentelemetry
                     type: string
                 required:
                 - type

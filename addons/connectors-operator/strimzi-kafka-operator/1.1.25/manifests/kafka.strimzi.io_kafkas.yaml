@@ -135,6 +135,12 @@ spec:
                   brokerCapacity:
                     description: The Cruise Control `brokerCapacity` configuration.
                     properties:
+                      cpu:
+                        description: Broker capacity for CPU resource in cores or
+                          millicores. For example, 1, 1.500, 1500m. For more information
+                          on valid CPU resource units see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu.
+                        pattern: ^[0-9]+([.][0-9]{0,3}|[m]?)$
+                        type: string
                       cpuUtilization:
                         description: Broker capacity for CPU resource utilization
                           as a percentage (0 - 100).
@@ -163,6 +169,43 @@ spec:
                           two) equivalents (Ki, Mi, Gi) per second. For example, 10000KiB/s.
                         pattern: ^[0-9]+([KMG]i?)?B/s$
                         type: string
+                      overrides:
+                        description: Overrides for individual brokers. The `overrides`
+                          property lets you specify a different capacity configuration
+                          for different brokers.
+                        items:
+                          properties:
+                            brokers:
+                              description: List of Kafka brokers (broker identifiers).
+                              items:
+                                type: integer
+                              type: array
+                            cpu:
+                              description: Broker capacity for CPU resource in cores
+                                or millicores. For example, 1, 1.500, 1500m. For more
+                                information on valid CPU resource units see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#meaning-of-cpu.
+                              pattern: ^[0-9]+([.][0-9]{0,3}|[m]?)$
+                              type: string
+                            inboundNetwork:
+                              description: Broker capacity for inbound network throughput
+                                in bytes per second. Use an integer value with standard
+                                Kubernetes byte units (K, M, G) or their bibyte (power
+                                of two) equivalents (Ki, Mi, Gi) per second. For example,
+                                10000KiB/s.
+                              pattern: ^[0-9]+([KMG]i?)?B/s$
+                              type: string
+                            outboundNetwork:
+                              description: Broker capacity for outbound network throughput
+                                in bytes per second. Use an integer value with standard
+                                Kubernetes byte units (K, M, G) or their bibyte (power
+                                of two) equivalents (Ki, Mi, Gi) per second. For example,
+                                10000KiB/s.
+                              pattern: ^[0-9]+([KMG]i?)?B/s$
+                              type: string
+                          required:
+                          - brokers
+                          type: object
+                        type: array
                     type: object
                   config:
                     description: 'The Cruise Control configuration. For a full list
@@ -171,12 +214,11 @@ spec:
                       bootstrap.servers, client.id, zookeeper., network., security.,
                       failed.brokers.zk.path,webserver.http., webserver.api.urlprefix,
                       webserver.session.path, webserver.accesslog., two.step., request.reason.required,metric.reporter.sampler.bootstrap.servers,
-                      metric.reporter.topic, partition.metric.sample.store.topic,
-                      broker.metric.sample.store.topic,capacity.config.file, self.healing.,
-                      ssl. (with the exception of: ssl.cipher.suites, ssl.protocol,
-                      ssl.enabled.protocols, webserver.http.cors.enabled, webserver.http.cors.origin,
-                      webserver.http.cors.exposeheaders, webserver.security.enable,
-                      webserver.ssl.enable).'
+                      capacity.config.file, self.healing., ssl., kafka.broker.failure.detection.enable,
+                      topic.config.provider.class (with the exception of: ssl.cipher.suites,
+                      ssl.protocol, ssl.enabled.protocols, webserver.http.cors.enabled,
+                      webserver.http.cors.origin, webserver.http.cors.exposeheaders,
+                      webserver.security.enable, webserver.ssl.enable).'
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
                   image:
@@ -920,7 +962,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -962,8 +1004,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:
@@ -1197,7 +1249,7 @@ spec:
                 properties:
                   template:
                     description: Template for Entity Operator resources. The template
-                      allows users to specify how is the `Deployment` and `Pods` generated.
+                      allows users to specify how a `Deployment` and `Pod` is generated.
                     properties:
                       deployment:
                         description: Template for Entity Operator `Deployment`.
@@ -1642,7 +1694,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -1684,8 +1736,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:
@@ -3010,7 +3072,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -3052,8 +3114,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:
@@ -3124,8 +3196,8 @@ spec:
                           Default value is `false`.
                         type: boolean
                       enableMetrics:
-                        description: Defines whether the Open Policy Agent authorizer
-                          plugin should provide metrics. Defaults to `false`.
+                        description: Enable or disable OAuth metrics. Default value
+                          is `false`.
                         type: boolean
                       expireAfterMs:
                         description: The expiration of the records kept in the local
@@ -3228,11 +3300,12 @@ spec:
                       host.name, port, inter.broker.listener.name, sasl., ssl., security.,
                       password., log.dir, zookeeper.connect, zookeeper.set.acl, zookeeper.ssl,
                       zookeeper.clientCnxnSocket, authorizer., super.user, cruise.control.metrics.topic,
-                      cruise.control.metrics.reporter.bootstrap.servers (with the
-                      exception of: zookeeper.connection.timeout.ms, ssl.cipher.suites,
-                      ssl.protocol, ssl.enabled.protocols,cruise.control.metrics.topic.num.partitions,
+                      cruise.control.metrics.reporter.bootstrap.servers,node.id, process.roles,
+                      controller. (with the exception of: zookeeper.connection.timeout.ms,
+                      ssl.cipher.suites, ssl.protocol, ssl.enabled.protocols, sasl.server.max.receive.size,cruise.control.metrics.topic.num.partitions,
                       cruise.control.metrics.topic.replication.factor, cruise.control.metrics.topic.retention.ms,cruise.control.metrics.topic.auto.create.retries,
-                      cruise.control.metrics.topic.auto.create.timeout.ms,cruise.control.metrics.topic.min.insync.replicas).'
+                      cruise.control.metrics.topic.auto.create.timeout.ms,cruise.control.metrics.topic.min.insync.replicas,controller.quorum.election.backoff.max.ms,
+                      controller.quorum.election.timeout.ms, controller.quorum.fetch.timeout.ms).'
                     type: object
                     x-kubernetes-preserve-unknown-fields: true
                   image:
@@ -3379,6 +3452,10 @@ spec:
                                 enabled. The BouncyCastle libraries are no longer
                                 packaged with Strimzi. Value is ignored.
                               type: boolean
+                            enableMetrics:
+                              description: Enable or disable OAuth metrics. Default
+                                value is `false`.
+                              type: boolean
                             enableOauthBearer:
                               description: Enable or disable OAuth authentication
                                 over SASL_OAUTHBEARER. Default value is `true`.
@@ -3387,6 +3464,11 @@ spec:
                               description: Enable or disable OAuth authentication
                                 over SASL_PLAIN. There is no re-authentication support
                                 when this mechanism is used. Default value is `false`.
+                              type: boolean
+                            failFast:
+                              description: Enable or disable termination of Kafka
+                                broker processes due to potentially recoverable runtime
+                                errors during startup. Default value is `true`.
                               type: boolean
                             fallbackUserNameClaim:
                               description: The fallback username claim to be used
@@ -3431,6 +3513,11 @@ spec:
                                 seconds.
                               minimum: 1
                               type: integer
+                            jwksIgnoreKeyUse:
+                              description: Flag to ignore the 'use' attribute of `key`
+                                declarations in a JWKS endpoint response. Default
+                                value is `false`.
+                              type: boolean
                             jwksMinRefreshPauseSeconds:
                               description: The minimum pause between two consecutive
                                 refreshes. When an unknown signing key is encountered
@@ -3766,7 +3853,6 @@ spec:
                                 to the specified CIDR ranges. This field is applicable
                                 only for loadbalancer type services and is ignored
                                 if the cloud provider does not support the feature.
-                                For more information, see https://v1-17.docs.kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/.
                                 This field can be used only with `loadbalancer` type
                                 listener.
                               items:
@@ -3899,13 +3985,17 @@ spec:
                             OpenShift Routes to expose Kafka.\n* `loadbalancer` type
                             uses LoadBalancer type services to expose Kafka.\n* `nodeport`
                             type uses NodePort type services to expose Kafka.\n* `ingress`
-                            type uses Kubernetes Nginx Ingress to expose Kafka.\n"
+                            type uses Kubernetes Nginx Ingress to expose Kafka with
+                            TLS passthrought.\n* `cluster-ip` type uses ClusterIP
+                            service with per broker port number. Can be exposed over
+                            Nginx Ingress Controller with tcp port config.\n"
                           enum:
                           - internal
                           - route
                           - loadbalancer
                           - nodeport
                           - ingress
+                          - cluster-ip
                           type: string
                       required:
                       - name
@@ -4013,9 +4103,9 @@ spec:
                     properties:
                       topologyKey:
                         description: A key that matches labels assigned to the Kubernetes
-                          cluster nodes. The value of the label is used to set the
-                          broker's `broker.rack` config and `client.rack` in Kafka
-                          Connect.
+                          cluster nodes. The value of the label is used to set a broker's
+                          `broker.rack` config, and the `client.rack` config for Kafka
+                          Connect or MirrorMaker 2.0.
                         example: topology.kubernetes.io/zone
                         type: string
                     required:
@@ -4188,8 +4278,8 @@ spec:
                     type: object
                   template:
                     description: Template for Kafka cluster resources. The template
-                      allows users to specify how are the `StatefulSet`, `Pods` and
-                      `Services` generated.
+                      allows users to specify how the `StatefulSet`, `Pods`, and `Services`
+                      are generated.
                     properties:
                       bootstrapService:
                         description: Template for Kafka bootstrap `Service`.
@@ -5065,7 +5155,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -5107,8 +5197,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:
@@ -5839,7 +5939,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -5881,8 +5981,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:
@@ -6206,8 +6316,8 @@ spec:
                     type: object
                   template:
                     description: Template for ZooKeeper cluster resources. The template
-                      allows users to specify how are the `StatefulSet`, `Pods` and
-                      `Services` generated.
+                      allows users to specify how the `StatefulSet`, `Pods`, and `Services`
+                      are generated.
                     properties:
                       clientService:
                         description: Template for ZooKeeper client `Service`.
@@ -6769,7 +6879,7 @@ spec:
                           tmpDirSizeLimit:
                             description: Defines the total amount (for example `1Gi`)
                               of local storage required for temporary EmptyDir volume
-                              (`/tmp`). Default value is `1Mi`.
+                              (`/tmp`). Default value is `5Mi`.
                             pattern: ^([0-9.]+)([eEinumkKMGTP]*[-+]?[0-9]*)$
                             type: string
                           tolerations:
@@ -6811,8 +6921,18 @@ spec:
                                       type: object
                                       x-kubernetes-preserve-unknown-fields: true
                                   type: object
+                                matchLabelKeys:
+                                  items:
+                                    type: string
+                                  type: array
                                 maxSkew:
                                   type: integer
+                                minDomains:
+                                  type: integer
+                                nodeAffinityPolicy:
+                                  type: string
+                                nodeTaintsPolicy:
+                                  type: string
                                 topologyKey:
                                   type: string
                                 whenUnsatisfiable:

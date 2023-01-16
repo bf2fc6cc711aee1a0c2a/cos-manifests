@@ -16,6 +16,7 @@ spec:
   ports:
     - name: http
       port: 80
+      protocol: TCP
       targetPort: 8080
   selector:
     app.kubernetes.io/name: cos-fleetshard-sync

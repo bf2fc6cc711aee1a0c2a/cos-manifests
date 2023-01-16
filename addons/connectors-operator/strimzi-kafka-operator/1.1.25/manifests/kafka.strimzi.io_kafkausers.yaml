@@ -121,6 +121,26 @@ spec:
                           - IdempotentWrite
                           - All
                           type: string
+                        operations:
+                          description: 'List of operations which will be allowed or
+                            denied. Supported operations are: Read, Write, Create,
+                            Delete, Alter, Describe, ClusterAction, AlterConfigs,
+                            DescribeConfigs, IdempotentWrite and All.'
+                          items:
+                            enum:
+                            - Read
+                            - Write
+                            - Create
+                            - Delete
+                            - Alter
+                            - Describe
+                            - ClusterAction
+                            - AlterConfigs
+                            - DescribeConfigs
+                            - IdempotentWrite
+                            - All
+                            type: string
+                          type: array
                         resource:
                           description: Indicates the resource for which given ACL
                             rule applies.
@@ -163,7 +183,6 @@ spec:
                           - deny
                           type: string
                       required:
-                      - operation
                       - resource
                       type: object
                     type: array
@@ -381,6 +400,26 @@ spec:
                           - IdempotentWrite
                           - All
                           type: string
+                        operations:
+                          description: 'List of operations which will be allowed or
+                            denied. Supported operations are: Read, Write, Create,
+                            Delete, Alter, Describe, ClusterAction, AlterConfigs,
+                            DescribeConfigs, IdempotentWrite and All.'
+                          items:
+                            enum:
+                            - Read
+                            - Write
+                            - Create
+                            - Delete
+                            - Alter
+                            - Describe
+                            - ClusterAction
+                            - AlterConfigs
+                            - DescribeConfigs
+                            - IdempotentWrite
+                            - All
+                            type: string
+                          type: array
                         resource:
                           description: Indicates the resource for which given ACL
                             rule applies.
@@ -423,7 +462,6 @@ spec:
                           - deny
                           type: string
                       required:
-                      - operation
                       - resource
                       type: object
                     type: array
@@ -641,6 +679,26 @@ spec:
                           - IdempotentWrite
                           - All
                           type: string
+                        operations:
+                          description: 'List of operations which will be allowed or
+                            denied. Supported operations are: Read, Write, Create,
+                            Delete, Alter, Describe, ClusterAction, AlterConfigs,
+                            DescribeConfigs, IdempotentWrite and All.'
+                          items:
+                            enum:
+                            - Read
+                            - Write
+                            - Create
+                            - Delete
+                            - Alter
+                            - Describe
+                            - ClusterAction
+                            - AlterConfigs
+                            - DescribeConfigs
+                            - IdempotentWrite
+                            - All
+                            type: string
+                          type: array
                         resource:
                           description: Indicates the resource for which given ACL
                             rule applies.
@@ -683,7 +741,6 @@ spec:
                           - deny
                           type: string
                       required:
-                      - operation
                       - resource
                       type: object
                     type: array
