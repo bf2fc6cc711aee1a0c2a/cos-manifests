@@ -21,7 +21,6 @@ configMapGenerator:
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_eventhubs_sink_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_eventhubs_source_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_functions_sink_0.1.json
-  - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_storage_blob_changefeed_source_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_storage_blob_sink_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_storage_blob_source_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-azure/azure_storage_queue_sink_0.1.json
@@ -40,7 +39,6 @@ configMapGenerator:
   options:
     disableNameSuffixHash: true
 - files:
-  - cos-fleet-catalog-camel/connector-catalog-camel-itops/ansible_tower_job_template_launch_sink_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-itops/splunk_0.1.json
   name: connector-catalog-camel-itops
   options:
@@ -51,7 +49,6 @@ configMapGenerator:
   - cos-fleet-catalog-camel/connector-catalog-camel-messaging/jms_amqp_10_source_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-messaging/jms_apache_artemis_sink_0.1.json
   - cos-fleet-catalog-camel/connector-catalog-camel-messaging/jms_apache_artemis_source_0.1.json
-  - cos-fleet-catalog-camel/connector-catalog-camel-messaging/rest_openapi_sink_0.1.json
   name: connector-catalog-camel-messaging
   options:
     disableNameSuffixHash: true
