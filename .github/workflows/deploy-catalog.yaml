@@ -5,7 +5,8 @@ on:
     branches:
       - main
     paths:
-      - "kustomize/overlays/dev/control-plane/kustomization.yaml"
+      - "kustomize/overlays/dev/control-plane/cos-fleet-catalog-camel/kustomization.yaml"
+      - "kustomize/overlays/dev/control-plane/cos-fleet-catalog-debezium/kustomization.yaml"
   workflow_dispatch:
 
 concurrency:
