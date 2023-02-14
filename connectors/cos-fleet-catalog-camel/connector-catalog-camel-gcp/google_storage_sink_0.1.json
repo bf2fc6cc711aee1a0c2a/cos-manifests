@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-b60802c58569e6890bb3a4d184773467d3ac80c0",
-        "connector_revision" : 82,
+        "connector_image" : "quay.io/rhoas/cos-connector-google-storage:main-f5f1f4b5a6e078b016886b292e81a19aad588cdd",
+        "connector_revision" : 83,
         "connector_type" : "sink",
         "consumes" : "application/octet-stream",
         "error_handler_strategy" : "stop",
