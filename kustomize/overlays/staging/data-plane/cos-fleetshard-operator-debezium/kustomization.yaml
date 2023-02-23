@@ -1,8 +1,8 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-debezium/?ref=v1.1.27
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-debezium/?ref=v1.1.28
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-debezium
-    digest: sha256:d40b60d1eb0445f86c9a9f94564133a16bc6cbf3cf8efef496d064a41e71a1c8
+    digest: sha256:0e83dbda2f3580c4decc4eef9db72a2f266c9aba2c629bc89c2247b6459165fe
 patchesStrategicMerge:
   - |-
     apiVersion: apps/v1
