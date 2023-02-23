@@ -45,6 +45,14 @@ spec:
           spec:
             description: The specification of the Kafka Connector.
             properties:
+              autoRestart:
+                description: Automatic restart of connector and tasks configuration.
+                properties:
+                  enabled:
+                    description: Whether automatic restart for failed connectors and
+                      tasks should be enabled or disabled.
+                    type: boolean
+                type: object
               class:
                 description: The Class for the Kafka Connector.
                 type: string
@@ -64,6 +72,21 @@ spec:
           status:
             description: The status of the Kafka Connector.
             properties:
+              autoRestart:
+                description: The auto restart status.
+                properties:
+                  connectorName:
+                    description: The name of the connector being restarted.
+                    type: string
+                  count:
+                    description: The number of times the connector or task is restarted.
+                    type: integer
+                  lastRestartTimestamp:
+                    description: The last time the automatic restart was attempted.
+                      The required format is 'yyyy-MM-ddTHH:mm:ssZ' in the UTC time
+                      zone.
+                    type: string
+                type: object
               conditions:
                 description: List of status conditions.
                 items:

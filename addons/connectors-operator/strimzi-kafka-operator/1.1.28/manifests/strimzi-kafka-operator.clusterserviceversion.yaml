@@ -10,13 +10,13 @@ metadata:
     operators.openshift.io/infrastructure-features: '["Disconnected", "Proxy"]'
     repository: https://github.com/strimzi/strimzi-kafka-operator
     support: Strimzi
-    cos.bf2.org/underlying-version: 0.32.0
-    olm.skipRange: '>=1.1.6 <1.1.27'
+    cos.bf2.org/underlying-version: 0.33.0
+    olm.skipRange: '>=1.1.6 <1.1.28'
   labels:
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/os.linux: supported
-  name: strimzi-kafka-operator.v1.1.27
+  name: strimzi-kafka-operator.v1.1.28
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -162,6 +162,129 @@ spec:
               verbs:
                 - get
             - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - roles
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+              resources:
+                - pods
+                - serviceaccounts
+                - configmaps
+                - services
+                - endpoints
+                - secrets
+                - persistentvolumeclaims
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - apps
+              resources:
+                - deployments
+                - deployments/scale
+                - deployments/status
+                - statefulsets
+                - replicasets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - ""
+                - events.k8s.io
+              resources:
+                - events
+              verbs:
+                - create
+            - apiGroups:
+                - build.openshift.io
+              resources:
+                - buildconfigs
+                - buildconfigs/instantiate
+                - builds
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - networkpolicies
+                - ingresses
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - route.openshift.io
+              resources:
+                - routes
+                - routes/custom-host
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
+                - image.openshift.io
+              resources:
+                - imagestreams
+              verbs:
+                - get
+            - apiGroups:
+                - policy
+              resources:
+                - poddisruptionbudgets
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - delete
+                - patch
+                - update
+            - apiGroups:
                 - ""
               resources:
                 - pods
@@ -216,8 +339,7 @@ spec:
                 app: strimzi
                 name: strimzi-cluster-operator
                 strimzi.io/kind: cluster-operator
-            strategy:
-              type: Recreate
+            strategy: {}
             template:
               metadata:
                 labels:
@@ -242,49 +364,53 @@ spec:
                       - name: STRIMZI_OPERATION_TIMEOUT_MS
                         value: "300000"
                       - name: STRIMZI_DEFAULT_TLS_SIDECAR_ENTITY_OPERATOR_IMAGE
-                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                        value: quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_DEFAULT_KAFKA_EXPORTER_IMAGE
-                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                        value: quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_DEFAULT_CRUISE_CONTROL_IMAGE
-                        value: quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                        value: quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_KAFKA_IMAGES
                         value: |
-                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
-                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
-                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
-                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                          3.2.0=quay.io/strimzi/kafka:0.33.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.33.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.33.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.33.0-kafka-3.3.1
+                          3.3.2=quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_KAFKA_CONNECT_IMAGES
                         value: |
-                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
-                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
-                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
-                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                          3.2.0=quay.io/strimzi/kafka:0.33.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.33.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.33.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.33.0-kafka-3.3.1
+                          3.3.2=quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_KAFKA_MIRROR_MAKER_IMAGES
                         value: |
-                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
-                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
-                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
-                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                          3.2.0=quay.io/strimzi/kafka:0.33.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.33.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.33.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.33.0-kafka-3.3.1
+                          3.3.2=quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_KAFKA_MIRROR_MAKER_2_IMAGES
                         value: |
-                          3.2.0=quay.io/strimzi/kafka:0.32.0-kafka-3.2.0
-                          3.2.1=quay.io/strimzi/kafka:0.32.0-kafka-3.2.1
-                          3.2.3=quay.io/strimzi/kafka:0.32.0-kafka-3.2.3
-                          3.3.1=quay.io/strimzi/kafka:0.32.0-kafka-3.3.1
+                          3.2.0=quay.io/strimzi/kafka:0.33.0-kafka-3.2.0
+                          3.2.1=quay.io/strimzi/kafka:0.33.0-kafka-3.2.1
+                          3.2.3=quay.io/strimzi/kafka:0.33.0-kafka-3.2.3
+                          3.3.1=quay.io/strimzi/kafka:0.33.0-kafka-3.3.1
+                          3.3.2=quay.io/strimzi/kafka:0.33.0-kafka-3.3.2
                       - name: STRIMZI_DEFAULT_TOPIC_OPERATOR_IMAGE
-                        value: quay.io/strimzi/operator:0.32.0
+                        value: quay.io/strimzi/operator:0.33.0
                       - name: STRIMZI_DEFAULT_USER_OPERATOR_IMAGE
-                        value: quay.io/strimzi/operator:0.32.0
+                        value: quay.io/strimzi/operator:0.33.0
                       - name: STRIMZI_DEFAULT_KAFKA_INIT_IMAGE
-                        value: quay.io/strimzi/operator:0.32.0
+                        value: quay.io/strimzi/operator:0.33.0
                       - name: STRIMZI_DEFAULT_KAFKA_BRIDGE_IMAGE
-                        value: quay.io/strimzi/kafka-bridge:0.22.3
+                        value: quay.io/strimzi/kafka-bridge:0.24.0
                       - name: STRIMZI_DEFAULT_JMXTRANS_IMAGE
-                        value: quay.io/strimzi/jmxtrans:0.32.0
+                        value: quay.io/strimzi/jmxtrans:0.33.0
                       - name: STRIMZI_DEFAULT_KANIKO_EXECUTOR_IMAGE
-                        value: quay.io/strimzi/kaniko-executor:0.32.0
+                        value: quay.io/strimzi/kaniko-executor:0.33.0
                       - name: STRIMZI_DEFAULT_MAVEN_BUILDER
-                        value: quay.io/strimzi/maven-builder:0.32.0
+                        value: quay.io/strimzi/maven-builder:0.33.0
                       - name: STRIMZI_OPERATOR_NAMESPACE
                         valueFrom:
                           fieldRef:
@@ -304,7 +430,7 @@ spec:
                             fieldPath: metadata.name
                       - name: STRIMZI_CUSTOM_RESOURCE_SELECTOR
                         value: cos.bf2.org/operator.type=debezium-connector-operator
-                    image: quay.io/strimzi/operator@sha256:c5e0e5dca7503a8371b8d366db0f49e3fc68f62ea480262e39b6cc277991c97c
+                    image: quay.io/strimzi/operator@sha256:8dbb8c2611400433287cab55999f98dfb1fb3ce0c71ac37bdf9670840a67d0a7
                     livenessProbe:
                       httpGet:
                         path: /healthy
@@ -387,23 +513,6 @@ spec:
                 - patch
                 - update
             - apiGroups:
-                - extensions
-              resources:
-                - deployments
-                - deployments/scale
-                - replicasets
-                - replicationcontrollers
-                - networkpolicies
-                - ingresses
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - delete
-                - patch
-                - update
-            - apiGroups:
                 - apps
               resources:
                 - deployments
@@ -466,6 +575,12 @@ spec:
                 - delete
                 - patch
                 - update
+            - apiGroups:
+                - image.openshift.io
+              resources:
+                - imagestreams
+              verbs:
+                - get
             - apiGroups:
                 - policy
               resources:
@@ -618,5 +733,5 @@ spec:
   selector:
     matchLabels:
       name: strimzi-cluster-operator
-  version: 1.1.27
-  replaces: strimzi-kafka-operator.v1.1.26
+  version: 1.1.28
+  replaces: strimzi-kafka-operator.v1.1.27

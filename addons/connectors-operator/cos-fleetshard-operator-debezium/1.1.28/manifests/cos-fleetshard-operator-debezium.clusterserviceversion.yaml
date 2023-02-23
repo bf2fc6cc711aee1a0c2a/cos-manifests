@@ -5,8 +5,8 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     repository: https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard/tree/main/cos-fleetshard-operator-debezium
-    olm.skipRange: '>=1.1.6 <1.1.27'
-  name: cos-fleetshard-operator-debezium.v1.1.27
+    olm.skipRange: '>=1.1.6 <1.1.28'
+  name: cos-fleetshard-operator-debezium.v1.1.28
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
@@ -106,7 +106,7 @@ spec:
                         value: cos-fleetshard-operator-debezium
                       - name: COS_OPERATOR_VERSION
                         value: 1.5.0
-                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:d40b60d1eb0445f86c9a9f94564133a16bc6cbf3cf8efef496d064a41e71a1c8
+                    image: quay.io/rhoas/cos-fleetshard-operator-debezium@sha256:0e83dbda2f3580c4decc4eef9db72a2f266c9aba2c629bc89c2247b6459165fe
                     imagePullPolicy: IfNotPresent
                     livenessProbe:
                       failureThreshold: 3
@@ -173,5 +173,5 @@ spec:
   maturity: alpha
   provider:
     name: Red Hat
-  version: 1.1.27
-  replaces: cos-fleetshard-operator-debezium.v1.1.26
+  version: 1.1.28
+  replaces: cos-fleetshard-operator-debezium.v1.1.27
