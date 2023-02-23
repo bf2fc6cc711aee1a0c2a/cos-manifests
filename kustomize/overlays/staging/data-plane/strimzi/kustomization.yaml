@@ -1,5 +1,5 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/strimzi/?ref=v1.1.27
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/strimzi/?ref=v1.1.28
 images:
   - name: quay.io/strimzi/operator
-    digest: sha256:c5e0e5dca7503a8371b8d366db0f49e3fc68f62ea480262e39b6cc277991c97c
+    digest: sha256:8dbb8c2611400433287cab55999f98dfb1fb3ce0c71ac37bdf9670840a67d0a7
