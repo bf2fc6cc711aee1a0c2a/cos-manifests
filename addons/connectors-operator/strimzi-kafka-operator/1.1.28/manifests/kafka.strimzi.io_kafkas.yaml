@@ -1271,6 +1271,26 @@ spec:
                                 x-kubernetes-preserve-unknown-fields: true
                             type: object
                         type: object
+                      entityOperatorRole:
+                        description: Template for the Entity Operator Role.
+                        properties:
+                          metadata:
+                            description: Metadata applied to the resource.
+                            properties:
+                              annotations:
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                              labels:
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                            type: object
+                        type: object
                       pod:
                         description: Template for Entity Operator `Pods`.
                         properties:
@@ -1926,6 +1946,26 @@ spec:
                                 type: object
                             type: object
                         type: object
+                      topicOperatorRoleBinding:
+                        description: Template for the Entity Topic Operator RoleBinding.
+                        properties:
+                          metadata:
+                            description: Metadata applied to the resource.
+                            properties:
+                              annotations:
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                              labels:
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                            type: object
+                        type: object
                       userOperatorContainer:
                         description: Template for the Entity User Operator container.
                         properties:
@@ -1999,6 +2039,26 @@ spec:
                                   runAsUserName:
                                     type: string
                                 type: object
+                            type: object
+                        type: object
+                      userOperatorRoleBinding:
+                        description: Template for the Entity Topic Operator RoleBinding.
+                        properties:
+                          metadata:
+                            description: Metadata applied to the resource.
+                            properties:
+                              annotations:
+                                description: Annotations added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
+                              labels:
+                                description: Labels added to the resource template.
+                                  Can be applied to different resources such as `StatefulSets`,
+                                  `Deployments`, `Pods`, and `Services`.
+                                type: object
+                                x-kubernetes-preserve-unknown-fields: true
                             type: object
                         type: object
                     type: object
@@ -3134,7 +3194,7 @@ spec:
                             type: array
                         type: object
                       serviceAccount:
-                        description: Template for the JMX Trans service account.
+                        description: Template for the JmxTrans service account.
                         properties:
                           metadata:
                             description: Metadata applied to the resource.
@@ -3302,7 +3362,8 @@ spec:
                       zookeeper.clientCnxnSocket, authorizer., super.user, cruise.control.metrics.topic,
                       cruise.control.metrics.reporter.bootstrap.servers,node.id, process.roles,
                       controller. (with the exception of: zookeeper.connection.timeout.ms,
-                      ssl.cipher.suites, ssl.protocol, ssl.enabled.protocols, sasl.server.max.receive.size,cruise.control.metrics.topic.num.partitions,
+                      sasl.server.max.receive.size,ssl.cipher.suites, ssl.protocol,
+                      ssl.enabled.protocols, ssl.secure.random.implementation,cruise.control.metrics.topic.num.partitions,
                       cruise.control.metrics.topic.replication.factor, cruise.control.metrics.topic.retention.ms,cruise.control.metrics.topic.auto.create.retries,
                       cruise.control.metrics.topic.auto.create.timeout.ms,cruise.control.metrics.topic.min.insync.replicas,controller.quorum.election.backoff.max.ms,
                       controller.quorum.election.timeout.ms, controller.quorum.fetch.timeout.ms).'
@@ -3779,11 +3840,14 @@ spec:
                                 type: object
                               type: array
                             class:
-                              description: Configures the `Ingress` class that defines
-                                which `Ingress` controller will be used. This field
-                                can be used only with `ingress` type listener. If
-                                not specified, the default Ingress controller will
-                                be used.
+                              description: Configures a specific class for `Ingress`
+                                and `LoadBalancer` that defines which controller will
+                                be used. This field can only be used with `ingress`
+                                and `loadbalancer` type listeners. If not specified,
+                                the default controller is used. For an `ingress` listener,
+                                set the `ingressClassName` property in the `Ingress`
+                                resources. For a `loadbalancer` listener, set the
+                                `loadBalancerClass` property  in the `Service` resources.
                               type: string
                             createBootstrapService:
                               description: Whether to create the bootstrap service
@@ -3893,7 +3957,7 @@ spec:
                                 domain suffix (by default `.cluster.local`, can be
                                 configured using environment variable `KUBERNETES_SERVICE_DNS_DOMAIN`).
                                 Defaults to `false`.This field can be used only with
-                                `internal` type listener.
+                                `internal` and `cluster-ip` type listeners.
                               type: boolean
                           type: object
                         name:
@@ -3986,9 +4050,8 @@ spec:
                             uses LoadBalancer type services to expose Kafka.\n* `nodeport`
                             type uses NodePort type services to expose Kafka.\n* `ingress`
                             type uses Kubernetes Nginx Ingress to expose Kafka with
-                            TLS passthrought.\n* `cluster-ip` type uses ClusterIP
-                            service with per broker port number. Can be exposed over
-                            Nginx Ingress Controller with tcp port config.\n"
+                            TLS passthrough.\n* `cluster-ip` type uses a per-broker
+                            `ClusterIP` service.\n"
                           enum:
                           - internal
                           - route
@@ -5499,6 +5562,14 @@ spec:
                       deployment:
                         description: Template for Kafka Exporter `Deployment`.
                         properties:
+                          deploymentStrategy:
+                            description: Pod replacement strategy for deployment configuration
+                              changes. Valid values are `RollingUpdate` and `Recreate`.
+                              Defaults to `RollingUpdate`.
+                            enum:
+                            - RollingUpdate
+                            - Recreate
+                            type: string
                           metadata:
                             description: Metadata applied to the resource.
                             properties:
