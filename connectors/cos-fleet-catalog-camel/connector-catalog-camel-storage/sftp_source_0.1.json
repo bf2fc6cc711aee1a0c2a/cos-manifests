@@ -7,14 +7,14 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-        "connector_revision" : 83,
+        "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-e8840e528b931366fa97d4be89e820be6132b739",
+        "connector_revision" : 84,
         "connector_type" : "source",
         "consumes" : "application/octet-stream",
         "error_handler_strategy" : "stop",
         "kamelets" : {
           "adapter" : {
-            "name" : "sftp-source",
+            "name" : "cos-sftp-source",
             "prefix" : "sftp"
           },
           "kafka" : {
@@ -103,6 +103,18 @@
           "description" : "Whether to ignore when (trying to list files in directories or when downloading a file), which does not exist or due to permission error. By default when a directory or file does not exists or insufficient permission, then an exception is thrown. Setting this option to true allows to ignore that instead.",
           "type" : "boolean",
           "default" : false
+        },
+        "sftp_binary" : {
+          "title" : "Binary",
+          "description" : "Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).",
+          "type" : "boolean",
+          "default" : false
+        },
+        "sftp_auto_create" : {
+          "title" : "Autocreate Missing Directories",
+          "description" : "Automatically create starting directory.",
+          "type" : "boolean",
+          "default" : true
         },
         "kafka_topic" : {
           "title" : "Topic Name",
