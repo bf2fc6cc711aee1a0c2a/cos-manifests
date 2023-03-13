@@ -10887,14 +10887,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "ftps-sink",
+                  "name" : "cos-ftps-sink",
                   "prefix" : "ftps"
                 },
                 "kafka" : {
@@ -10971,6 +10971,18 @@ objects:
                 "description" : "Specifies how the Kamelet behaves if the file already exists. Possible values are Override, Append, Fail, or Ignore.",
                 "type" : "string",
                 "default" : "Override"
+              },
+              "ftps_binary" : {
+                "title" : "Binary",
+                "description" : "Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).",
+                "type" : "boolean",
+                "default" : false
+              },
+              "ftps_auto_create" : {
+                "title" : "Autocreate Missing Directories",
+                "description" : "Automatically create the directory the files should be written to.",
+                "type" : "boolean",
+                "default" : true
               },
               "kafka_topic" : {
                 "title" : "Topic Names",
@@ -11078,14 +11090,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-ftps:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "ftps-source",
+                  "name" : "cos-ftps-source",
                   "prefix" : "ftps"
                 },
                 "kafka" : {
@@ -11166,6 +11178,18 @@ objects:
               "ftps_idempotent" : {
                 "title" : "Idempotency",
                 "description" : "Skip already-processed files.",
+                "type" : "boolean",
+                "default" : true
+              },
+              "ftps_binary" : {
+                "title" : "Binary",
+                "description" : "Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).",
+                "type" : "boolean",
+                "default" : false
+              },
+              "ftps_auto_create" : {
+                "title" : "Autocreate Missing Directories",
+                "description" : "Automatically create starting directory.",
                 "type" : "boolean",
                 "default" : true
               },
@@ -11275,8 +11299,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11463,8 +11487,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-minio:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -11657,14 +11681,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "sftp-sink",
+                  "name" : "cos-sftp-sink",
                   "prefix" : "sftp"
                 },
                 "kafka" : {
@@ -11741,6 +11765,18 @@ objects:
                 "description" : "How to behave in case of file already existent. There are 4 enums. Possible values are Override, Append, Fail, or Ignore.",
                 "type" : "string",
                 "default" : "Override"
+              },
+              "sftp_binary" : {
+                "title" : "Binary",
+                "description" : "Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).",
+                "type" : "boolean",
+                "default" : false
+              },
+              "sftp_auto_create" : {
+                "title" : "Autocreate Missing Directories",
+                "description" : "Automatically create the directory the files should be written to.",
+                "type" : "boolean",
+                "default" : true
               },
               "kafka_topic" : {
                 "title" : "Topic Names",
@@ -11848,14 +11884,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-              "connector_revision" : 83,
+              "connector_image" : "quay.io/rhoas/cos-connector-sftp:main-e8840e528b931366fa97d4be89e820be6132b739",
+              "connector_revision" : 84,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "sftp-source",
+                  "name" : "cos-sftp-source",
                   "prefix" : "sftp"
                 },
                 "kafka" : {
@@ -11944,6 +11980,18 @@ objects:
                 "description" : "Whether to ignore when (trying to list files in directories or when downloading a file), which does not exist or due to permission error. By default when a directory or file does not exists or insufficient permission, then an exception is thrown. Setting this option to true allows to ignore that instead.",
                 "type" : "boolean",
                 "default" : false
+              },
+              "sftp_binary" : {
+                "title" : "Binary",
+                "description" : "Specifies the file transfer mode, BINARY or ASCII. Default is ASCII (false).",
+                "type" : "boolean",
+                "default" : false
+              },
+              "sftp_auto_create" : {
+                "title" : "Autocreate Missing Directories",
+                "description" : "Automatically create starting directory.",
+                "type" : "boolean",
+                "default" : true
               },
               "kafka_topic" : {
                 "title" : "Topic Name",
