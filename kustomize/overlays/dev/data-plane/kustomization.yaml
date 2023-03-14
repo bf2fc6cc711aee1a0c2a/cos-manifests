@@ -4,11 +4,11 @@ patchesStrategicMerge:
   - patches/argocd-crds-kameletbindings.yaml
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-camel
-    digest: sha256:2c044d89f3c6668c7b3eba6b1c937a36ce9f53b2879632a0852eab98970d2fb5
+    digest: sha256:321af3dd9c09e2fa779cb9dc29db534437079d9b9b125712795c1ae440676ef0
   - name: quay.io/rhoas/cos-fleetshard-operator-debezium
-    digest: sha256:34d250f429b897d71fefb281dd8cbb50115a2d4b33a0b867660e1e555367aa79
+    digest: sha256:a6d7796a5f21e87029cf693bd062e9fa497011394e24c4b1c5095cc53a19e2f7
   - name: quay.io/rhoas/cos-fleetshard-sync
-    digest: sha256:d7e22d7348245f4f0276e4246d93fc04efcc657e677ed22f41f96da689efdac3
+    digest: sha256:d58bb191b02f294531d65e090131ea1b44b5af86eb7dc28c737eb9befe4ea2a7
   - name: quay.io/rhoas/cos-camel-k
     digest: sha256:f42213014a5a5164abddb71984b24864e3b73044df2ab94ce76f5aec42b2864c
   - name: quay.io/strimzi/operator
