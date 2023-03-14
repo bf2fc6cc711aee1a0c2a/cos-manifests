@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-22711444d8f7e8de02b41e0cdf0d8c77dd79a286",
-        "connector_revision" : 83,
+        "connector_image" : "quay.io/rhoas/cos-connector-telegram:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
+        "connector_revision" : 84,
         "connector_type" : "source",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
