@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-elasticsearch:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-        "connector_revision" : 84,
+        "connector_image" : "quay.io/rhoas/cos-connector-elasticsearch:main-84cc5bde99be0aebe408d2a7dc53ac24a97f6666",
+        "connector_revision" : 85,
         "connector_type" : "sink",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
@@ -33,7 +33,7 @@
   "connector_type" : {
     "capabilities" : [ "data_shape", "error_handler", "processors" ],
     "channels" : [ "stable" ],
-    "description" : "Store JSON-formatted data into ElasticSearch.",
+    "description" : "Send JSON objects to ElasticSearch. Other JSON data types are not supported.",
     "icon_href" : "TODO",
     "id" : "elasticsearch_sink_0.1",
     "kind" : "ConnectorType",
