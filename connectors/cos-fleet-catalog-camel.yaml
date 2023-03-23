@@ -2481,8 +2481,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2654,8 +2654,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-eventhubs:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -2867,8 +2867,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-functions:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-functions:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3038,14 +3038,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "azure-storage-blob-sink",
+                  "name" : "cos-azure-storage-blob-sink",
                   "prefix" : "azure"
                 },
                 "kafka" : {
@@ -3105,12 +3105,6 @@ objects:
                 "description" : "The operation to perform.",
                 "type" : "string",
                 "default" : "uploadBlockBlob"
-              },
-              "azure_credential_type" : {
-                "title" : "Credential Type",
-                "description" : "Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY",
-                "type" : "string",
-                "default" : "SHARED_ACCOUNT_KEY"
               },
               "kafka_topic" : {
                 "title" : "Topic Names",
@@ -3218,8 +3212,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3279,12 +3273,6 @@ objects:
                   "type" : "object",
                   "properties" : { }
                 } ]
-              },
-              "azure_credential_type" : {
-                "title" : "Credential Type",
-                "description" : "Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY",
-                "type" : "string",
-                "default" : "SHARED_ACCOUNT_KEY"
               },
               "azure_delay" : {
                 "title" : "Delay",
@@ -3404,8 +3392,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "sink",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
@@ -3572,8 +3560,8 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 86,
+              "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-queue:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+              "connector_revision" : 87,
               "connector_type" : "source",
               "consumes" : "application/octet-stream",
               "error_handler_strategy" : "stop",
