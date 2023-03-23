@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-        "connector_revision" : 86,
+        "connector_image" : "quay.io/rhoas/cos-connector-azure-storage-blob:main-6456e179e04fbfbad2e81f3921ce48003ede8d06",
+        "connector_revision" : 87,
         "connector_type" : "source",
         "consumes" : "application/octet-stream",
         "error_handler_strategy" : "stop",
@@ -68,12 +68,6 @@
             "type" : "object",
             "properties" : { }
           } ]
-        },
-        "azure_credential_type" : {
-          "title" : "Credential Type",
-          "description" : "Determines the credential strategy to adopt. Possible values are SHARED_ACCOUNT_KEY, SHARED_KEY_CREDENTIAL and AZURE_IDENTITY",
-          "type" : "string",
-          "default" : "SHARED_ACCOUNT_KEY"
         },
         "azure_delay" : {
           "title" : "Delay",
