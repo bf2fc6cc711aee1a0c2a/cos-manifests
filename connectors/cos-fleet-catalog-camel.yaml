@@ -5968,14 +5968,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 84,
+              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-5f6b4d7906dfe837ffff5b51dccf20a05b7be700",
+              "connector_revision" : 85,
               "connector_type" : "sink",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "cassandra-sink",
+                  "name" : "cos-cassandra-sink",
                   "prefix" : "cassandra"
                 },
                 "kafka" : {
@@ -6045,9 +6045,10 @@ objects:
               },
               "cassandra_consistency_level" : {
                 "title" : "Consistency Level",
-                "description" : "The consistency level to use. Set the value to one of these options - ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, or LOCAL_ONE.",
+                "description" : "The consistency level to use.",
                 "type" : "string",
-                "default" : "ANY"
+                "default" : "ANY",
+                "enum" : [ "ANY", "ONE", "TWO", "THREE", "QUORUM", "ALL", "LOCAL_QUORUM", "EACH_QUORUM", "LOCAL_ONE" ]
               },
               "cassandra_prepare_statements" : {
                 "title" : "Prepare Statements",
@@ -6166,14 +6167,14 @@ objects:
                 "trait.camel.apache.org/container.request-memory" : "128M",
                 "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
               },
-              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-6333bcc62918539728ce18c7c3eaadb39e10fda1",
-              "connector_revision" : 84,
+              "connector_image" : "quay.io/rhoas/cos-connector-cassandra:main-5f6b4d7906dfe837ffff5b51dccf20a05b7be700",
+              "connector_revision" : 85,
               "connector_type" : "source",
               "consumes" : "application/json",
               "error_handler_strategy" : "stop",
               "kamelets" : {
                 "adapter" : {
-                  "name" : "cassandra-source",
+                  "name" : "cos-cassandra-source",
                   "prefix" : "cassandra"
                 },
                 "kafka" : {
@@ -6249,9 +6250,10 @@ objects:
               },
               "cassandra_consistency_level" : {
                 "title" : "Consistency Level",
-                "description" : "The consistency level to use. Possible values are ANY, ONE, TWO, THREE, QUORUM, ALL, LOCAL_QUORUM, EACH_QUORUM, SERIAL, LOCAL_SERIAL, or LOCAL_ONE.",
+                "description" : "The consistency level to use.",
                 "type" : "string",
-                "default" : "QUORUM"
+                "default" : "QUORUM",
+                "enum" : [ "ONE", "TWO", "THREE", "QUORUM", "ALL", "LOCAL_QUORUM", "EACH_QUORUM", "SERIAL", "LOCAL_SERIAL", "LOCAL_ONE" ]
               },
               "cassandra_query" : {
                 "title" : "Query",
