@@ -7,14 +7,14 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-google-bigquery:main-2640a57a8f405483261d0f1d4ac1a035f5ff978b",
-        "connector_revision" : 86,
+        "connector_image" : "quay.io/rhoas/cos-connector-google-bigquery:main-1e334780eb3a4197768b6bf7184a578eca43258c",
+        "connector_revision" : 87,
         "connector_type" : "sink",
         "consumes" : "application/json",
         "error_handler_strategy" : "stop",
         "kamelets" : {
           "adapter" : {
-            "name" : "google-bigquery-sink",
+            "name" : "cos-google-bigquery-sink",
             "prefix" : "gcp"
           },
           "kafka" : {
@@ -65,11 +65,11 @@
           "oneOf" : [ {
             "title" : "Service Account Key",
             "description" : "The service account key to use as credentials for the BigQuery Service. You must encode this value in base64.",
-            "type" : "string",
             "format" : "password"
           }, {
             "description" : "An opaque reference to the gcp_service_account_key",
-            "type" : "object"
+            "type" : "object",
+            "properties" : { }
           } ]
         },
         "kafka_topic" : {
