@@ -8,7 +8,10 @@ metadata:
           "apiVersion": "camel.apache.org/v1",
           "kind": "IntegrationPlatform",
           "metadata": {
-            "name": "camel-k"
+            "annotations": {
+              "camel.apache.org/operator.id": "cos-fleetshard-operator-camel"
+            },
+            "name": "cos-fleetshard-operator-camel"
           }
         }
       ]
@@ -20,8 +23,8 @@ metadata:
     repository: https://github.com/apache/camel-k
     support: Camel
     cos.bf2.org/underlying-version: 1.10.1
-    olm.skipRange: '>=1.1.6 <1.1.28'
-  name: camel-k-operator.v1.1.28
+    olm.skipRange: '>=1.1.6 <1.1.30'
+  name: camel-k-operator.v1.1.30
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
@@ -412,9 +415,9 @@ spec:
                             key: log.level
                             name: camel-k-override-config
                             optional: true
-                      - name: OPERATOR_NAME
-                        value: camel-k
                       - name: OPERATOR_ID
+                        value: cos-fleetshard-operator-camel
+                      - name: OPERATOR_NAME
                         value: camel-k
                       - name: POD_NAME
                         valueFrom:
@@ -475,5 +478,5 @@ spec:
   selector:
     matchLabels:
       name: camel-k-operator
-  version: 1.1.28
-  replaces: camel-k-operator.v1.1.27
+  version: 1.1.30
+  replaces: camel-k-operator.v1.1.29
