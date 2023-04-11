@@ -1,8 +1,8 @@
 resources:
-  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-camel/?ref=v1.1.28
+  - https://github.com/bf2fc6cc711aee1a0c2a/cos-fleetshard//etc/kubernetes/manifests/overlays/staging/cos-fleetshard-operator-camel/?ref=v1.1.30
 images:
   - name: quay.io/rhoas/cos-fleetshard-operator-camel
-    digest: sha256:aa109f0b625a4df418b1ab3d5d0f72e936a865b52bad54990560b0b698691ef4
+    digest: sha256:f52c7ef148d05cc9656c020d43b3f757a5c7280b5ea9f7bb9b8a113114f7349e
 patchesStrategicMerge:
   - |-
     apiVersion: apps/v1
