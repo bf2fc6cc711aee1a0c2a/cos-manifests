@@ -8,7 +8,7 @@ data:
     quarkus.log.category."io.fabric8.kubernetes.client.internal.VersionUsageUtils".level = ERROR
 
     # our properties
-    cos.operator.camel.label-selection.enabled = false
+    cos.operator.camel.label-selection.enabled = true
 kind: ConfigMap
 metadata:
   name: cos-fleetshard-operator-camel-config
