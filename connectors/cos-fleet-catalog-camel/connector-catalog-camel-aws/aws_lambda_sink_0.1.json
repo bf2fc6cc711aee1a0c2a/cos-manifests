@@ -7,8 +7,8 @@
           "trait.camel.apache.org/container.request-memory" : "128M",
           "trait.camel.apache.org/deployment.progress-deadline-seconds" : "30"
         },
-        "connector_image" : "quay.io/rhoas/cos-connector-aws-lambda:main-3ab5a9d34119bc1a6a9518fd66b1ba6a52aeee94",
-        "connector_revision" : 88,
+        "connector_image" : "quay.io/rhoas/cos-connector-aws-lambda:main-993d25e9b939b095f4693ec6fa18e758981323d3",
+        "connector_revision" : 89,
         "connector_type" : "sink",
         "consumes" : "application/octet-stream",
         "error_handler_strategy" : "stop",
