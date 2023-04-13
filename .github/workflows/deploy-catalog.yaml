@@ -7,6 +7,7 @@ on:
     paths:
       - "kustomize/overlays/dev/control-plane/cos-fleet-catalog-camel/kustomization.yaml"
       - "kustomize/overlays/dev/control-plane/cos-fleet-catalog-debezium/kustomization.yaml"
+      - "connectors/cos-fleet-catalog-camel.yaml"
   workflow_dispatch:
 
 concurrency:
